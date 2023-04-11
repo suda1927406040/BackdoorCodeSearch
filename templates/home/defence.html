@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Defence</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/css/eval.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/defence.css">
+    <!--    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <br>
+    <br>
+    <!-- 防御数据获取部分 -->
+    <div class="container" style="background-image: linear-gradient(#28acfd, #87CEFA, #d4ecfb);">
+        <form action="/home/defence_result" method="post" enctype="multipart/form-data">
+            <div class="row">
+                <h3>请注意，上传数据集的格式为.jsonl文件</h3>
+            </div>
+            <br>
+            <br>
+            <div class="col-lg-4">
+                <input type="file" id="train-set" name="train-set"><label for="train-set"><i class="fa-solid fa-upload"></i>&nbsp;上传数据集</label>
+                <div id="train-info" class="info"></div>
+                <button type="reset" onclick="reset_set()" class="lock">清空</button>
+            </div>
+            <br>
+            <br>
+            <div class="col-lg-4">&nbsp;</div>
+            <div class="col-lg-4">&nbsp;</div>
+            <div class="row">
+                <h3>输入后门攻击的方式(使用空格隔开)</h3>
+                <br>
+                <div class="col-lg-4">
+                    <label for="target">请指定target</label>&nbsp;&nbsp;<input type="text" name="target" id="target"><button type="button" onclick="lock_target()" class="lock" id="lock_target_id">确定</button><button type="reset" class="lock" id="reset_target">清空</button>
+                </div>
+                <div class="col-lg-4">
+                    <label for="trigger">请指定trigger</label>&nbsp;&nbsp;<input type="text" name="trigger" id="trigger"><button type="button" onclick="lock_trigger()" class="lock" id="lock_trigger_id">确定</button><button type="reset" class="lock" id="reset_trigger">清空</button>
+                </div>
+            </div>
+            <div class="row">
+                <h3>选择检测算法</h3>
+                <input type="radio" name="mode" id="spec" value="spectral"><label for="spec">Spectral Signature&nbsp;&nbsp;&nbsp;</label>
+                <input type="radio" name="mode" id="active" value="activate" checked="checked"><label for="active">Activation Clustering</label>
+            </div>
+            <br>
+            <input class="pull-right" id="upload-bnt" type="submit" value="进行检测" />
+            <input class="pull-right" id="reset-bnt" type="reset" value="清空" />
+        </form>
+        <br>
+        <br>
+        <br>
+        <br>
+    </div>
+
+    <script>
+        // var dataset = document.getElementById('dataset');
+        // 获取数据集文件
+        var train_data = document.getElementById("train-set");
+        train_info = document.getElementById("train-info");
+        train_data.addEventListener("change", function() {
+
+            if (!train_data.value.endsWith("jsonl")) {
+                alert("请上传.jsonl格式文件！");
+                return;
+            }
+            train_info.innerHTML = "添加数据集成功!";
+        })
+
+        function reset_set() {
+            document.getElementById("model-py").value = null;
+            model_py_info.innerHTML = null;
+        }
+
+        function reset_model() {
+            document.getElementById("model-bin").value = null;
+            model_py_info.innerHTML = null;
+        }
+
+        function lock_target() {
+            var targets = document.getElementById('target').value;
+            targets = targets.split(' ');
+            document.getElementById('target').value = targets;
+            document.getElementById("lock_target_id").style.opacity = 0;
+            document.getElementById("reset_target").style.opacity = 0;
+            // alert(document.getElementById('target').value);
+            // console.log(targets);
+        }
+
+
+        function lock_trigger() {
+            var triggers = document.getElementById('trigger').value;
+            triggers = triggers.split(' ');
+            document.getElementById('trigger').value = triggers;
+            document.getElementById("lock_trigger_id").style.opacity = 0;
+            document.getElementById("reset_trigger").style.opacity = 0;
+            // console.log(trigger);
+        }
+
+        function reset_set() {
+            document.getElementById("train-set").value = null;
+            train_info.innerHTML = null;
+        }
+    </script>
+</body>
+
+
+</html>

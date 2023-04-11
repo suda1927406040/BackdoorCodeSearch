@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inject</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/css/eval.css" />
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/static/css/eval.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/eval_result.css" />
+    <style>
+        input[type="submit"] {
+            /* -moz-user-select: none; */
+            background-color: #28acfd;
+            /* background-image: -moz-linear-gradient(center top, #F5F5F5, #F1F1F1); */
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            color: #ffffff;
+            cursor: default;
+            font-family: arial, sans-serif;
+            font-size: 11px;
+            font-weight: bold;
+            height: 75px;
+            width: 120px;
+            line-height: 27px;
+            margin: 11px 6px;
+            min-width: 54px;
+            padding: 0 8px;
+            text-align: center;
+        }
+        
+        h4 {
+            color: gray;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- <div id="cover"></div> -->
+    <br>
+    <br>
+    <br>
+    <br>
+    <form action="/home/inject_result" method="get" enctype="multipart/form-data">
+        <div class="container" id="ask-4-data">
+            <input type="submit" id="download-data" value="下载数据集">
+        </div>
+    </form>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div class="container" id="description">
+        <div class="row">
+            <h4>注入方式说明</h4>
+            <p>本系统使用了...点击下载后可以使用进行poison的训练</p>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,118 @@
+.navbar-brand {
+    font-family: 'Times New Roman', Times, serif;
+}
+
+#task-type1 {
+    background-color: #1E90FF;
+    width: 130px;
+    height: 150px;
+    border: 10px solid #87CEFA;
+    text-align: center;
+    line-height: 130px;
+    color: #00FFFF;
+}
+
+#task-type2 {
+    background-color: #1E90FF;
+    width: 130px;
+    height: 150px;
+    border: 10px solid #87CEFA;
+    text-align: center;
+    line-height: 130px;
+    color: #00FFFF;
+}
+
+.col-lg-2 {
+    background-color: white;
+    width: 300px;
+    height: 150px;
+    border: 10px solid #87CEFA;
+    text-align: center;
+    line-height: 130px;
+}
+
+#system-intro {
+    font-size: large;
+    font-weight: bold;
+    color: #fff;
+    border-left-color: #0075bd;
+    border-left-style: solid;
+    border-right-color: #0075bd;
+    border-right-style: solid;
+    height: 250px;
+}
+
+#rule-intro {
+    font-size: large;
+    font-weight: bold;
+    color: #fff;
+    height: 250px;
+}
+
+
+/* #navi {
+    background-color: #87CEFA;
+} */
+
+#inside {
+    position: relative;
+    top: 30px;
+    background-color: #00FFFF;
+}
+
+#myChart {
+    /* background-color: #87CEFA; */
+    /* background-image: linear-gradient(#28acfd, #87CEFA, #d4ecfb); */
+    color: #000;
+}
+
+#sys-block {
+    background-color: purple;
+    height: 10px;
+    width: 5px;
+}
+
+#outside {
+    border-radius: 5px;
+    border-top-right-radius: 5px;
+    position: relative;
+    left: 5px;
+    /* right: 5px; */
+    height: 400px;
+    /* background-color: #87CEFA; */
+    background-image: linear-gradient(#28acfd, #87CEFA, #d4ecfb);
+}
+
+
+/* #bottom {
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    position: relative;
+    left: 5px;
+    /* right: 5px; */
+
+
+/* height: 50px;
+    background-color: #66bff7;
+} */
+
+*/ #func_select1 {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+#func_select2 {
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+#page-bottom {
+    position: relative;
+    top: 400px;
+    left: 47%;
+}
+
+
+/* nav {
+    background-color: #87CEFA;
+} */

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!-- <script src="../../static/js/node_modules/chart.js/dist/chart.umd.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/css/main.css" />
+</head>
+
+<body>
+    <br>
+    <br>
+    <!-- 规则介绍 -->
+    <!-- <div class="container" style="background-color:linear-gradient(0deg, blue, green 40%, red);"> -->
+    <!-- <div class="container" style="background-color:linear-gradient(#87CEFA 0%,#22a1f0 50%,#44b5fc 50%,#87CEFA 100%);"> -->
+    <div class="container" id="outside">
+        <div id="inside">
+            <div class="col-lg-4">
+                <canvas id="myChart"></canvas>
+            </div>
+            <div class="col-lg-4" id="system-intro">
+                <div class="container">
+                    <div class="row">
+                        <span id="sys-block"></span>六大评估体系
+                    </div>
+                    <br>
+                    <div class="row">rate1</div>
+                    <div class="row">rate2</div>
+                    <div class="row">rate3</div>
+                    <div class="row">rate4</div>
+                    <div class="row">rate5</div>
+                    <div class="row">rate6</div>
+                </div>
+            </div>
+            <div class="col-lg-4" id="rule-intro">
+                <div class="container">
+                    <div class="row">模型评估排行</div>
+                    <br>
+                    <div class="row">排行范围：服务于同种任务的不同模型</div>
+                    <div class="row">排行依据：六大维度平均得分</div>
+                    <div class="row">评分方式：各模型独立评估计算得分</div>
+                    <div class="row">评分体系: 0-5分评分方式</div>
+                    <div class="row">&nbsp;</div>
+                    <div class="row">&nbsp;</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container" id="bottom"></div>
+    <!-- 选择功能 -->
+    <br><br><br>
+    <div class="container">
+        <div class="row">
+            <h3>选择应用场景</h3>
+        </div>
+        <!-- <div class="container" style="background-color: #87CEFA;"> -->
+        <div class="row" style="background-color: #87CEFA;" id="func_select1">
+            <div class="col-xs-offset-1 col-lg-2" id="task-type1">代码搜素</div>
+            <div class="col-lg-2">
+                <a href="#" id="search">代码搜索模型评估</a>
+            </div>
+        </div>
+        <div class="row" style="background-color: #87CEFA;" id="func_select2">
+            <div class="col-xs-offset-1 col-lg-2" id="task-type2">后门攻击</div>
+            <div class="col-lg-2">
+                <a href="#" id="attack">后门攻击评估</a>
+            </div>
+            <div class="col-lg-2">
+                <a href="#" id="defence">后门攻击防御</a>
+            </div>
+            <div class="col-lg-2">
+                <a href="#" id="inject">后门注入污染</a>
+            </div>
+        </div>
+        <!-- </div> -->
+    </div>
+    <!-- <br><br><br> -->
+
+    <div class=" container-fluid " id="page-bottom ">
+        <p class="foot ">© 2023 YMZ</p>
+    </div>
+
+    <script>
+        const ctx = document.getElementById('myChart');
+
+        const data = {
+            labels: ['rate1', 'rate2', 'rate3', 'rate4', 'rate5', 'rate6'],
+            datasets: [{
+                label: "Result ",
+                data: [4.1, 3.2, 5, 3.81, 4.56, 4.55],
+                fill: true,
+                backgroundColor: 'rgba(220,208,255, 0.8)',
+                borderColor: 'rgb(128, 0, 128)',
+                pointBackgroundColor: 'rgb(220,208,255)',
+                pointBorderColor: '#fff',
+                pointHoverBackgroundColor: '#fff',
+                pointHoverBorderColor: 'rgb(255, 99, 132)'
+            }]
+        }
+
+        new Chart(ctx, {
+            type: 'radar',
+            data: data,
+            options: {
+                responsive: true, // 设置图表为响应式，根据屏幕窗口变化而变化
+                maintainAspectRatio: false, // 保持图表原有比例
+                elements: {
+                    line: {
+                        borderWidth: 3 // 设置线条宽度
+                    }
+                },
+                scale: {
+                    min: 0,
+                    max: 5
+                }
+            }
+        });
+
+        function onlogout() {
+            $.ajax({
+                type: "GET ",
+                url: "{{ url_for( 'home.loginout') }} ",
+            })
+        }
+
+        var search = document.getElementById("search");
+        var attack = document.getElementById("attack");
+        var defence = document.getElementById("defence");
+        var inject = document.getElementById("inject");
+
+        search.addEventListener("click", function() {
+            $.ajax({
+                url: "/home/search_eval",
+                contentType: "GET",
+            });
+            window.top.location = "http://127.0.0.1:5000/home/search_eval"
+        });
+        attack.addEventListener("click", function() {
+            $.ajax({
+                url: "/home/attack",
+                contentType: "GET",
+            });
+            window.top.location = "http://127.0.0.1:5000/home/attack"
+        });
+        inject.addEventListener("click", function() {
+            $.ajax({
+                url: "/home/inject",
+                contentType: "GET",
+            });
+            window.top.location = "http://127.0.0.1:5000/home/inject"
+        });
+        defence.addEventListener("click", function() {
+            $.ajax({
+                url: "/home/defence",
+                contentType: "GET",
+            });
+            window.top.location = "http://127.0.0.1:5000/home/defence"
+        });
+    </script>
+</body>
+
+
+
+</html>

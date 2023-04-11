@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attack Result</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/eval_result.css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <div id="cover"></div>
+    <br>
+    <br>
+    <div class="container" id="ask-4-data">
+        <input type="button" id="show-data" value="显示数据" onclick="get_metrics()">
+    </div>
+    <!-- 显示模型参数结束 -->
+    <!-- 评估数据结果 -->
+    <div class="container" id="result-defence" style="background-color: #ffffff;">
+        <div class="container" id="inside">
+            <div class="row">
+                <!-- <h4>模型后门攻击防御的评估结果如下</h4> -->
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="row" id="model-info">
+                            <div class="title">&nbsp;</div>
+                            <div class="col-lg-6">
+                                <p class="info-fixed">中毒的数据数量</p>
+                                <p id="poisoned_num"></p>
+                            </div>
+                            <div class="col-lg-6">
+                                <p class="info-fixed">干净的数据数量</p>
+                                <p id="clean_num"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="title">防御检测评分详情<i class="glyphicon glyphicon-info-sign"></i></div>
+                        <br>
+                        <div class="row">
+                            <div id="fpr" class="Metrics">FPR</div>
+                            <div class="content" id="fpr-content"></div>
+                        </div>
+                        <div class="row">
+                            <div id="recall" class="Metrics">Recall</div>
+                            <div class="content" id="recall-content"></div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">&nbsp;</div>
+                </div>
+                <br>
+                <br>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <!-- <i></i> -->
+                        <div class="Metrics">FPR</div>
+                        <div class="description">FPR 解释<i class="glyphicon glyphicon-edit"></i></div>
+                        <div id="mrr-des" class="description">假阳性率</div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="Metrics">Recall</div>
+                        <div class="description">Recall 解释<i class="glyphicon glyphicon-edit"></i></div>
+                        <div id="asr1-des" class="description">召回率</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 内div -->
+    </div>
+    <!-- 展示内容结束 -->
+
+    <!-- 底部 -->
+    <div class="container-fluid" id="page-bottom">
+        <p class="foot">© 2023 YMZ</p>
+    </div>
+
+    <script>
+        // document.getElementById("inside").style.opacity = 0.05;
+        var ask4data = document.getElementById("ask-4-data");
+        var show_data = document.getElementById("show-data");
+        var results = null;
+
+        show_data.addEventListener("click", function() {
+            // alert("评测中, 请耐心等待...");
+            var cover = document.getElementById("cover");
+            cover.style.height = "1000px";
+            cover.style.width = "1900px";
+            cover.style.backgroundColor = "#ffffff";
+            cover.style.textAlign = "center";
+            // cover.style.fontSize = "15em";
+            cover.innerHTML = "<br><br><h1>防御检测中, 请稍后...</h1><div class='wrapper' id='wrapper'><div id='jd' class='first'></div></div>";
+            var width = 0;
+            var timer;
+            var _jd = document.getElementById("jd");
+            timer = setInterval(function() {
+                width += 1;
+                if (width === 99)
+                    width = 0;
+                document.getElementsByClassName("first")[0].style.width = width + "%";
+            }, 30);
+        });
+
+
+        // 获取防御数据
+        function get_metrics() {
+            $.ajax({
+                url: "/home/defence_result",
+                contentType: "GET",
+                success: function(res) {
+                    // alert("姓名: " + data.name + "年龄: " + data.age);
+                    results = JSON.parse(res);
+                    console.log(results.FPR);
+                    console.log(results.Recall);
+                    document.getElementById("inside").style.opacity = 1;
+                    content();
+                    cover.remove();
+                    ask4data.innerHTML = "";
+                },
+                error: function() {
+                    alert("连接出错, 未能获取数据...");
+                    cover.remove();
+                }
+            });
+        }
+
+
+        function content() {
+            var fpr = document.getElementById("fpr-content");
+            var recall = document.getElementById("recall-content");
+            var poisoned_num = document.getElementById("poisoned_num");
+            var clean_num = document.getElementById("clean_num");
+            var total = parseInt(results.poisoned_data_num) + parseInt(results.clean_data_num);
+            fpr.innerHTML = "本防御方法在" + total + "个目标上, 达到的假阳性率为" + results.FPR;
+            recall.innerHTML = "本防御方法在" + total + "个目标上, 达到的召回率为" + results.Recall;
+            poisoned_num.innerHTML = results.poisoned_data_num;
+            clean_num.innerHTML = results.clean_data_num;
+            // var summary = document.getElementById("summary");
+        }
+    </script>
+</body>
+
+</html>

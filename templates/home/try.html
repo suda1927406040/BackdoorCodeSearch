@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .wrapper {
+            width: 500px;
+            height: 50px;
+            border: 1px solid black;
+            border-radius: 50px;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+        
+        .first {
+            height: 50px;
+            line-height: 50px;
+            background-color: green;
+            border-radius: 50px;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div id="jd" class="first"></div>
+    </div>
+    <script>
+        var width = 0;
+        var timer;
+        var _jd = document.getElementById("jd");
+        timer = setInterval(function() {
+            width += 1;
+            _jd.innerText = "加载中";
+            if (width === 99) {
+                width = 0;
+            }
+            document.getElementsByClassName("first")[0].style.width = width + "%";
+        }, 30);
+    </script>
+</body>
+
+</html>

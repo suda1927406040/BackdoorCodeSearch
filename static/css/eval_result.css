@@ -1,0 +1,144 @@
+body {
+    background-color: #f5f8ff;
+}
+
+
+/* #wrapper {
+    margin-top: 200px;
+} */
+
+.wrapper {
+    /* margin-top: 300px; */
+    /* top: 300px; */
+    position: absolute;
+    top: 250px;
+    left: 200px;
+    width: 1500px;
+    height: 100px;
+    border: 1px solid #87CEFA;
+    border-radius: 50px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.first {
+    height: 100px;
+    line-height: 100px;
+    /* background-color: #237ee6; */
+    background-image: linear-gradient(#28acfd, #87CEFA, #d4ecfb);
+    /* font-size: 5em; */
+    border-radius: 50px;
+    color: white;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+}
+
+#model-setting {
+    background-color: #a8d7f77e;
+    width: 1500px;
+    height: 300px;
+    border-radius: 15px;
+}
+
+#model-setting-bottom {
+    background-color: #ffffff;
+    width: 1475px;
+    height: 20px;
+    border-radius: 5px;
+    position: relative;
+}
+
+#model-info {
+    margin-top: 25px;
+}
+
+.info-fixed {
+    color: #7e7d7d;
+}
+
+#model-name {
+    font-size: large;
+    text-align: center;
+}
+
+#model-pic {
+    /* position: relative; */
+    margin-top: 25px;
+    height: 200px;
+    width: auto;
+}
+
+#ask-4-data {
+    /* background-color: #ffffff; */
+    width: 300px;
+    height: 100px;
+}
+
+#show-data {
+    outline-style: none;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    padding: 14px 14px;
+    width: 300px;
+    font-size: 24px;
+    left: 100px;
+}
+
+#result {
+    /* cursor: pointer; */
+    border-radius: 5px;
+    height: 900px;
+    /* background-color: #ccc; */
+}
+
+#result-defence {
+    /* cursor: pointer; */
+    border-radius: 5px;
+    height: 400px;
+    /* background-color: #ccc; */
+}
+
+#inside {
+    position: relative;
+    height: inherit;
+    width: auto;
+    top: 50px;
+}
+
+.content {
+    font-size: small;
+}
+
+#page-bottom {
+    position: relative;
+    top: 400px;
+    left: 47%;
+}
+
+.title {
+    font-size: 25px;
+    font-family: Microsoft YaHei;
+    font-weight: bolder;
+}
+
+.description {
+    font-family: Microsoft Yahei;
+    font-size: x-small;
+    color: gray;
+}
+
+.equation {
+    height: 60px;
+    width: auto;
+}
+
+.Metrics {
+    font-weight: bold;
+}
+
+h5 {
+    color: blue;
+    display: inline;
+    /* white-space: nowrap; */
+}

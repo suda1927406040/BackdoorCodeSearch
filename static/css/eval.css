@@ -1,0 +1,153 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    background-color: #f5f8ff;
+}
+
+.col-lg-2 {
+    height: 100px;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+input[type=text] {
+    border: 0;
+    border-radius: 2.5%;
+}
+
+label {
+    color: #f5f8ff;
+}
+
+.container {
+    border-radius: 0.5em;
+}
+
+.nav-content {
+    color: #ffffff;
+    font-size: large;
+}
+
+
+/* label {
+    color: #ffffff;
+} */
+
+
+/* button {
+            right: 50%;
+            bottom: 50%;
+        } */
+
+.row {
+    font-family: 'Songti';
+    position: relative;
+    left: 20px;
+}
+
+h3 {
+    color: #ffffff;
+}
+
+.info {
+    color: #ffffff;
+}
+
+.error-info {
+    color: red;
+    text-align: center;
+}
+
+#upload-bnt,
+#reset-bnt {
+    width: 70px;
+    height: 30px;
+    border-width: 1px;
+    border-radius: 3px;
+    border-color: #d4ecfb;
+    background: #87CEFA;
+    cursor: pointer;
+    font-family: "Poppins", sans-serif;
+    font-weight: bolder;
+    color: #ffffff;
+    font-size: 14px;
+}
+
+
+/* #reset-bnt {
+    width: 70px;
+    height: 30px;
+    border-width: 1px;
+    border-radius: 3px;
+    border-color: #d4ecfb;
+    background: #87CEFA;
+    cursor: pointer;
+    font-family: "Poppins", sans-serif;
+    font-weight: bolder;
+    color: #ffffff;
+    font-size: 14px;
+} */
+
+input[type="radio"]+label::before {
+    content: "\a0";
+    /*不换行空格*/
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 18px;
+    width: 1em;
+    height: 1em;
+    margin-right: .4em;
+    border-radius: 50%;
+    border: 1px solid white;
+    text-indent: .15em;
+    line-height: 1;
+}
+
+input[type="radio"]:checked+label::before {
+    background-color: white;
+    background-clip: content-box;
+    padding: .2em;
+}
+
+input[type="radio"] {
+    position: absolute;
+    clip: rect(0, 0, 0, 0);
+}
+
+button[type="button"],
+button[type="reset"] {
+    display: inline-block;
+    background-color: #87CEFA;
+    color: #fff;
+    border-color: #87CEFA;
+    zoom: 1;
+    /* zoom and *display = ie7 hack for display:inline-block */
+    *display: inline;
+    vertical-align: baseline;
+    margin: 0 2px;
+    outline: none;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    font: 5px Arial, Helvetica, sans-serif;
+    padding: .5em 2em .55em;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, .3);
+    -webkit-border-radius: .5em;
+    -moz-border-radius: .5em;
+    border-radius: .5em;
+}
+
+img {
+    display: none;
+}
+
+button:hover+img {
+    display: block;
+}

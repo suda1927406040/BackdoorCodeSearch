@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/eval.css" />
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style>
+        .col-lg-2 {
+            height: 100px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <br>
+    <br>
+    <!-- 防御数据获取部分 -->
+    <div class="container" style="background-image: linear-gradient(#28acfd, #87CEFA, #d4ecfb);">
+        <div class="row">
+            <h3>请注意，上传对应格式的文件</h3>
+        </div>
+        <br>
+        <form action="/home/attack_eval" method="post" enctype="multipart/form-data">
+            <!-- <form action="attack_eval" method="post"> -->
+            <div class="col-lg-6"><input type="file" id="model-py" name="model-py">
+                <label for="model-py"><i class="fa-solid fa-upload"></i>&nbsp;上传模型文件(.py)</label>
+                <div id="model-py-info" class="info"></div>
+            </div>
+            <div class="col-lg-6"><input type="file" id="model-bin" name="model-bin">
+                <label for="model-bin"><i class="fa-solid fa-upload"></i>&nbsp;上传模型文件(.bin)</label>
+                <div id="model-bin-info" class="info"></div>
+            </div>
+            <br>
+            <div class="row">
+                <h3>请注意，上传数据集的格式为.jsonl文件</h3>
+            </div>
+            <br>
+            <div class="col-lg-4"><input type="file" id="train-set" accept="jsonl" name="train-set">
+                <label for="train-set"><i class="fa-solid fa-upload"></i>&nbsp;上传训练集</label>
+                <div id="train-info" class="info"></div>
+            </div>
+            <div class="col-lg-4"><input type="file" id="test-set" name="test-set">
+                <label for="test-set"><i class="fa-solid fa-upload"></i>&nbsp;上传测试集</label>
+                <div id="test-info" class="info"></div>
+            </div>
+            <div class="col-lg-4"><input type="file" id="valid-set" name="valid-set">
+                <label for="valid-set"><i class="fa-solid fa-upload"></i>&nbsp;上传验证集</label>
+                <div id="valid-info" class="info"></div>
+            </div>
+            <br>
+            <br>
+            <!-- <input class="pull-right" type="submit" value="进行评估">
+                    <input class="pull-right" type="reset" value="清空"> -->
+            <!-- <button type="submit" class="btn btn-default pull-right" onclick="upload_attack_eval()">进行评估</button>
+            <button type="submit" class="btn btn-default pull-right" onclick="reload()">清空</button> -->
+            <input class="pull-right" id="upload-bnt" type="submit" value="进行评估" />
+            <input class="pull-right" id="reset-bnt" type="reset" value="清空" />
+        </form>
+        <!-- </form> -->
+        <br>
+        <br>
+        <div class="row" id="error-info"></div>
+    </div>
+
+    <script>
+        var model_py = document.getElementById("model-py");
+        var model_py_info = document.getElementById("model-py-info");
+        var model_bin = document.getElementById("model-bin");
+        var model_bin_info = document.getElementById("model-bin-info")
+        var train_data = document.getElementById("train-set");
+        var train_info = document.getElementById("train-info");
+        var test_data = document.getElementById("test-set");
+        var test_info = document.getElementById("test-info");
+        var valid_data = document.getElementById("valid-set");
+        var valid_info = document.getElementById("valid-info");
+
+        model_py.addEventListener("change", function() {
+
+            if (!model_py.value.endsWith("py")) {
+                alert("请上传python文件！");
+                return;
+            }
+            model_py_info.innerHTML = "添加模型结构成功!";
+        })
+
+        model_bin.addEventListener("change", function() {
+
+            if (!model_bin.value.endsWith("bin")) {
+                alert("请上传.bin格式的模型文件！");
+                return;
+            }
+            model_bin_info.innerHTML = "添加模型结构成功!";
+        })
+
+        train_data.addEventListener("change", function() {
+
+            if (!train_data.value.endsWith("jsonl")) {
+                alert("请上传.jsonl格式文件！");
+                return;
+            }
+            train_info.innerHTML = "添加训练集成功!";
+        })
+
+        test_data.addEventListener("change", function() {
+
+            if (!test_data.value.endsWith("jsonl")) {
+                alert("请上传.jsonl格式文件！");
+                return;
+            }
+            test_info.innerHTML = "添加测试集成功!";
+        })
+
+        valid_data.addEventListener("change", function() {
+
+            if (!valid_data.value.endsWith("jsonl")) {
+                alert("请上传.jsonl格式文件！");
+                return;
+            }
+            valid_info.innerHTML = "添加验证集成功!";
+        })
+    </script>
+
+</body>
+
+</html>

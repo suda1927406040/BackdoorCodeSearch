@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inject</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/css/eval.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/inject.css" />
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <br>
+    <br>
+    <!-- 防御数据获取部分 -->
+    <div class="container" style="background-image: linear-gradient(#28acfd, #87CEFA, #d4ecfb);">
+        <form action="/home/inject_result" method="post" enctype="multipart/form-data">
+            <div class="row">
+                <h3>请注意，上传数据集的格式为.jsonl文件</h3>
+                <br>
+                <br>
+                <div class="col-lg-4">
+                    <input type="file" id="dataset" name="dataset"><label for="dataset"><i class="fa-solid fa-upload"></i>&nbsp;上传数据集</label>
+                    <div id="dataset-info" class="info"></div>
+                    <button type="reset" onclick="reset_set()" class="lock">清空</button>
+                </div>
+                <!-- <div class="col-lg-4">
+                    <input type="file" id="test-set"><label for="test-set"><i class="fa-solid fa-upload"></i>&nbsp;上传测试集</label>
+                    <div id="test-info" class="info"></div>
+                </div>
+                <div class="col-lg-4">
+                    <input type="file" id="valid-set"><label for="valid-set"><i
+                            class="fa-solid fa-upload"></i>&nbsp;上传验证集</label>
+                    <div id="valid-info" class="info"></div>
+                </div>-->
+            </div>
+            <div class="row">
+                <h3>以下为注入说明</h3>
+                <div id="instruction">
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;本系统提供BackDoor的注入方式, 对于CodeSearch任务</p>
+                    <p>给定了...</p>
+                </div>
+            </div>
+            <input class="pull-right" id="upload-bnt" type="submit" value="进行投毒" />
+            <input class="pull-right" id="reset-bnt" type="reset" value="清空" />
+            <br>
+            <br>
+        </form>
+    </div>
+
+    <script>
+        var dataset = document.getElementById("dataset");
+        var data_info = document.getElementById("dataset-info");
+        dataset.addEventListener("change", function(e) {
+            // alert(typeof(model_py.value));
+            if (!dataset.value.endsWith("jsonl")) {
+                alert("请上传jsonl文件!");
+                return;
+            }
+            data_info.innerHTML = "添加数据集成功!";
+        })
+
+        function reset_set() {
+            document.getElementById("dataset").value = null;
+            data_info.innerHTML = null;
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,23 @@
+.navbar {
+    background-color: #237ee6;
+    color: #fff;
+    height: 65px;
+}
+
+
+/* .newactive {
+    background-color: #87CEFA;
+} */
+
+.navbar-brand {
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.nav-content {
+    color: #ffffff;
+    font-size: large;
+}
+
+li {
+    height: 85px;
+}
