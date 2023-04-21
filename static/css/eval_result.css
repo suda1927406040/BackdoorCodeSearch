@@ -61,6 +61,11 @@ body {
     /* margin-right: 5px; */
 }
 
+/* #model-pic:hover {
+    height: 220px;
+    width: auto;
+} */
+
 #ask-4-data {
     /* background-color: #ffffff; */
     width: 300px;
@@ -142,4 +147,9 @@ h5 {
 
 #myChart {
     margin-top: 20px;
+}
+
+#synthesis_chart {
+    width: 150px;
+    height: auto;
 }

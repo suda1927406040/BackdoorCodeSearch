@@ -23,7 +23,7 @@
     <br>
     <br>
     <!-- 防御数据获取部分 -->
-    <div class="container" style="background-image: linear-gradient(#28acfd, #87CEFA, #d4ecfb);">
+    <div class="container" style="background-image: linear-gradient(#237ee6, #28acfd, #87CEFA);">
         <div class="row">
             <h3>请注意，上传对应格式的文件</h3>
         </div>
@@ -82,7 +82,7 @@
         var valid_data = document.getElementById("valid-set");
         var valid_info = document.getElementById("valid-info");
 
-        model_py.addEventListener("change", function() {
+        model_py.addEventListener("change", function () {
 
             if (!model_py.value.endsWith("py")) {
                 alert("请上传python文件！");
@@ -91,7 +91,7 @@
             model_py_info.innerHTML = "添加模型结构成功!";
         })
 
-        model_bin.addEventListener("change", function() {
+        model_bin.addEventListener("change", function () {
 
             if (!model_bin.value.endsWith("bin")) {
                 alert("请上传.bin格式的模型文件！");
@@ -100,7 +100,7 @@
             model_bin_info.innerHTML = "添加模型结构成功!";
         })
 
-        train_data.addEventListener("change", function() {
+        train_data.addEventListener("change", function () {
 
             if (!train_data.value.endsWith("jsonl")) {
                 alert("请上传.jsonl格式文件！");
@@ -109,7 +109,7 @@
             train_info.innerHTML = "添加训练集成功!";
         })
 
-        test_data.addEventListener("change", function() {
+        test_data.addEventListener("change", function () {
 
             if (!test_data.value.endsWith("jsonl")) {
                 alert("请上传.jsonl格式文件！");
@@ -118,7 +118,7 @@
             test_info.innerHTML = "添加测试集成功!";
         })
 
-        valid_data.addEventListener("change", function() {
+        valid_data.addEventListener("change", function () {
 
             if (!valid_data.value.endsWith("jsonl")) {
                 alert("请上传.jsonl格式文件！");
