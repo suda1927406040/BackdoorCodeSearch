@@ -18,9 +18,10 @@
         <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
-                <a class="navbar-brand" href="#">
-                    <div class="nav-content">Backdoor Evalutation</div>
-                </a>
+                <!-- <a class="navbar-brand" href="#"> -->
+                <div class="nav-content" id="title"><span class="glyphicon glyphicon-search"
+                        aria-hidden="true"></span>&nbsp;Backdoor Evalutation</div>
+                <!-- </a> -->
                 <!-- <a class="navbar-brand" href="#"><img src="../../static/images/main.png" style="width: 60px; height: 40px;"></a> -->
             </div>
 
@@ -49,14 +50,14 @@
                     </li>
                     <li>
                         <a id="inject" href="#">
-                            <div class="nav-content">后门注入污染</div>
+                            <div class="nav-content">数据植入后门</div>
                         </a>
                     </li>
                 </ul>
 
                 <form class="navbar-form navbar-right">
                     <div class="form-group">
-                        <button type="submit" class="btn btn-default" onclick="onlogout()">【退出】</button>
+                        <button type="submit" id="logout" class="btn btn-default" onclick="onlogout()">【退出】</button>
                     </div>
                 </form>
 
@@ -64,40 +65,55 @@
         </div>
     </nav>
     <script>
+        var title = document.getElementById("title");
         var index = document.getElementById("index");
         var search = document.getElementById("search");
         var attack = document.getElementById("attack");
         var defence = document.getElementById("defence");
         var inject = document.getElementById("inject");
 
-        index.addEventListener("click", function() {
+
+        title.addEventListener("mouseover", function () {
+            title.style.backgroundColor = "#1E90FF";
+            this.style.cursor = "pointer";
+        });
+        title.addEventListener("mouseout", function () {
+            title.style.backgroundColor = "#237ee6";
+        });
+
+        if (window.top.location === "http://127.0.0.1:5000/home/index") {
+            index.focus();
+        }
+
+        index.addEventListener("click", function () {
             $.ajax({
                 url: "/home/index",
                 contentType: "GET",
             });
+            window.top.location = "http://127.0.0.1:5000/home/index"
         });
-        search.addEventListener("click", function() {
+        search.addEventListener("click", function () {
             $.ajax({
                 url: "/home/search_eval",
                 contentType: "GET",
             });
             window.top.location = "http://127.0.0.1:5000/home/search_eval"
         });
-        attack.addEventListener("click", function() {
+        attack.addEventListener("click", function () {
             $.ajax({
                 url: "/home/attack",
                 contentType: "GET",
             });
             window.top.location = "http://127.0.0.1:5000/home/attack"
         });
-        inject.addEventListener("click", function() {
+        inject.addEventListener("click", function () {
             $.ajax({
                 url: "/home/inject",
                 contentType: "GET",
             });
             window.top.location = "http://127.0.0.1:5000/home/inject"
         });
-        defence.addEventListener("click", function() {
+        defence.addEventListener("click", function () {
             $.ajax({
                 url: "/home/defence",
                 contentType: "GET",

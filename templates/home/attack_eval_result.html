@@ -19,11 +19,11 @@
     <div id="cover"></div>
     <br>
     <br>
-    <div class="container" id="ask-4-data">
+    <div class="container-fluid" id="ask-4-data">
         <input type="button" id="show-data" value="显示数据" onclick="get_metrics()">
     </div>
     <!-- 显示模型参数 -->
-    <div class="container" id="model-setting">
+    <div class="container-fluid" id="model-setting">
         <div class="row">
             <div class="col-lg-4">
                 <div class="row" id="model-info">
@@ -69,13 +69,13 @@
             </div>
         </div>
     </div>
-    <div class="container" id="model-setting-bottom"></div>
+    <div class="container-fluid" id="model-setting-bottom"></div>
     <br>
     <br>
     <!-- 显示模型参数结束 -->
     <!-- 评估数据结果 -->
-    <div class="container" id="result" style="background-color: #ffffff;">
-        <div class="container" id="inside">
+    <div class="container-fluid" id="result" style="background-color: #ffffff;">
+        <div class="container-fluid" id="inside">
             <div class="row">
                 <!-- <h4>模型后门攻击防御的评估结果如下</h4> -->
                 <div class="row">
@@ -86,80 +86,87 @@
                         </div>
                     </div>
                     <div class="col-lg-4">
-                        <div class="title">模型评分详情<i class="glyphicon glyphicon-info-sign"></i></div>
+                        <div class="title">模型评分详情<i class="glyphicon glyphicon-info-sign"></i></div><br>
                         <div class="row">
                             <div id="mrr" class="Metrics">MRR</div>
                             <div class="content" id="mrr-content"></div>
-                        </div>
+                        </div><br>
                         <div class="row">
                             <div id="asr1" class="Metrics">ASR@1</div>
                             <div class="content" id="asr1-content"></div>
-                        </div>
+                        </div><br>
                         <div class="row">
                             <div id="asr5" class="Metrics">ASR@5</div>
                             <div class="content" id="asr5-content"></div>
-                        </div>
+                        </div><br>
                         <div class="row">
                             <div id="asr10" class="Metrics">ASR@10</div>
                             <div class="content" id="asr10-content"></div>
-                        </div>
+                        </div><br>
                         <div class="row">
                             <div id="anr" class="Metrics">ANR</div>
                             <div class="content" id="anr-content"></div>
-                        </div>
+                        </div><br>
                         <div class="row"></div>
                     </div>
                     <div class="col-lg-4">
                         <div class="title">模型评分排行<i class="glyphicon glyphicon-th-list"></i></div>
                         <div id="rank"></div>
                     </div>
-                </div>
+                </div><br><br>
                 <div class="row">
                     <div class="col-lg-6">
                         <!-- <i></i> -->
-                        <div class="Metrics">MRR
+                        <div class="Metrics">&nbsp;&nbsp;MRR<br>
                             <img src="../../static/images/mrr.png" class="equation">
                         </div>
                         <div class="description">MRR 解释<i class="glyphicon glyphicon-edit"></i></div>
-                        <div id="mrr-des" class="description">评估代码搜索系统在干净数据集上的性能, 使用平均倒数秩(MRR), 该方法已被广泛应用于信息检索的评估中。Q为查询集的大小, 为c真实的候选值, Rank(·, ·)为其在检索结果中的对应排名。MRR根据其排名给出了预测结果的评分。</div>
+                        <div id="mrr-des" class="description">评估代码搜索系统在干净数据集上的性能, 使用平均倒数秩(MRR),
+                            该方法已被广泛应用于信息检索的评估中。Q为查询集的大小, 为c真实的候选值, Rank(·, ·)为其在检索结果中的对应排名。MRR根据其排名给出了预测结果的评分。</div>
                     </div>
                     <div class="col-lg-6">
-                        <div class="Metrics">ASR@1
+                        <div class="Metrics">&nbsp;&nbsp;ASR@1<br>
                             <img src="../../static/images/asr.png" class="equation">
                         </div>
                         <div class="description">ASR@1 解释<i class="glyphicon glyphicon-edit"></i></div>
                         <div id="asr1-des" class="description">通过攻击可以成功地从前50%提升到前1的中毒样本的百分比。</div>
                     </div>
-                </div>
+                </div><br><br>
                 <div class="row">
                     <div class="col-lg-6">
-                        <div class="Metrics">ASR@5
+                        <div class="Metrics">&nbsp;&nbsp;ASR@5
+                            <br>
                             <img src="../../static/images/asr.png" class="equation">
                         </div>
                         <div class="description">ASR@5 解释<i class="glyphicon glyphicon-edit"></i></div>
                         <div id="asr5-des" class="description">通过攻击可以成功地从前50%提升到前5的中毒样本的百分比。</div>
                     </div>
                     <div class="col-lg-6">
-                        <div class="Metrics">ASR@10
+                        <div class="Metrics">&nbsp;&nbsp;ASR@10<br>
                             <img src="../../static/images/asr.png" class="equation">
                         </div>
                         <div class="description">ASR@10 解释<i class="glyphicon glyphicon-edit"></i></div>
                         <div id="asr10-des" class="description">通过攻击可以成功地从前50%提升到前10的中毒样本的百分比。</div>
                     </div>
-                </div>
+                </div><br><br>
                 <div class="row">
                     <div class="col-lg-6">
-                        <div class="Metrics">ANR
+                        <div class="Metrics">&nbsp;&nbsp;ANR<br>
                             <img src="../../static/images/anr.png" class="equation">
                         </div>
-                        <div class="description">ANR 解释<i class="glyphicon glyphicon-edit"></i></div>
-                        <div id="anr-des" class="description">评估数据中毒攻击策略的有效性，使用了平均归一秩(ANR)。c'表示执行攻击后的候选对象, |C|为完整排名列表的长度。后门攻击, 目的是将中毒的候选代码提升到榜首。ANR表示攻击后的平均归一化排名, ANR的值越小, 攻击性能越好。但五分制化后都是越大越好。</div>
+                        <div class="description">&nbsp;&nbsp;ANR 解释<i class="glyphicon glyphicon-edit"></i></div>
+                        <div id="anr-des" class="description">评估数据中毒攻击策略的有效性，使用了平均归一秩(ANR)。c'表示执行攻击后的候选对象,
+                            |C|为完整排名列表的长度。后门攻击, 目的是将中毒的候选代码提升到榜首。ANR表示攻击后的平均归一化排名, ANR的值越小, 攻击性能越好。但五分制化后都是越大越好。</div>
                     </div>
                     <div class="col-lg-6">
-                        <div class="Metrics">综上所述
+                        <div class="Metrics">&nbsp;&nbsp;综上所述
                         </div>
                         <div class="description">总结<i class="glyphicon glyphicon-edit"></i></div>
                         <div id="summary" class="description"></div>
+                        <!-- 环状图指向模型好坏 -->
+                        <div class="chart">
+                            <canvas id="synthesis_chart"></canvas>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -174,6 +181,7 @@
     </div>
 
     <script>
+        var askBackEnd = false;
         document.getElementById("model-setting").style.opacity = 0.05;
         document.getElementById("inside").style.opacity = 0.05;
         var ask4data = document.getElementById("ask-4-data");
@@ -181,11 +189,12 @@
         var metrics = null;
         var model_setting = null;
 
-        show_data.addEventListener("click", function() {
+        show_data.addEventListener("click", function () {
             alert("评测中, 请耐心等待...");
             var cover = document.getElementById("cover");
+            cover.className = "container-fluid";
             cover.style.height = "1000px";
-            cover.style.width = "1900px";
+            cover.style.width = "auto";
             cover.style.backgroundColor = "#ffffff";
             cover.style.textAlign = "center";
             // cover.style.fontSize = "15em";
@@ -193,86 +202,155 @@
             var width = 0;
             var timer;
             var _jd = document.getElementById("jd");
-            timer = setInterval(function() {
+            timer = setInterval(function () {
                 width += 1;
                 if (width === 99)
                     width = 0;
                 document.getElementsByClassName("first")[0].style.width = width + "%";
-            }, 30);
+            }, 3);
         });
 
         // 获取评测数据
         function get_metrics() {
-            $.ajax({
-                url: "/home/attack_eval",
-                contentType: "GET",
-                success: function(res) {
-                    // alert("姓名: " + data.name + "年龄: " + data.age);
-                    metrics = JSON.parse(res);
-                    model_setting = metrics.model_setting;
-                    // 创建雷达图
-                    var charts = $("div.chart");
-                    $(charts[0]).children().remove();
-                    $(charts[0]).append($("<canvas />", {
-                        id: "myChart"
-                    }));
-                    const ctx = document.getElementById('myChart');
-                    // var metrics = [1.1, 1.21, 1.35, 1.81, 1.56];
-                    const data = {
-                        labels: ['MRR', 'ASR@1', 'ASR@5', 'ASR@10', 'ANR'],
-                        datasets: [{
-                            label: "Result",
-                            data: [metrics.MRR, metrics.ASR1, metrics.ASR5, metrics.ASR10, metrics.ANR],
-                            fill: true,
-                            backgroundColor: 'rgba(220,208,255, 0.8)',
-                            borderColor: 'rgb(128, 0, 128)',
-                            pointBackgroundColor: 'rgb(220,208,255)',
-                            pointBorderColor: '#fff',
-                            pointHoverBackgroundColor: '#fff',
-                            pointHoverBorderColor: 'rgb(255, 99, 132)'
-                        }]
-                    }
-                    new Chart(ctx, {
-                        type: 'radar',
-                        data: data,
-                        options: {
-                            responsive: true, // 设置图表为响应式，根据屏幕窗口变化而变化
-                            maintainAspectRatio: false, // 保持图表原有比例
-                            elements: {
-                                line: {
-                                    borderWidth: 3 // 设置线条宽度
-                                }
-                            },
-                            scale: {
-                                min: 0,
-                                max: 5
-                            }
+            if (askBackEnd) {
+                $.ajax({
+                    url: "/home/attack_eval",
+                    contentType: "GET",
+                    success: function (res) {
+                        // alert("姓名: " + data.name + "年龄: " + data.age);
+                        metrics = JSON.parse(res);
+                        model_setting = metrics.model_setting;
+                        // 创建雷达图
+                        var charts = $("div.chart");
+                        $(charts[0]).children().remove();
+                        $(charts[0]).append($("<canvas />", {
+                            id: "myChart"
+                        }));
+                        const ctx = document.getElementById('myChart');
+                        // var metrics = [1.1, 1.21, 1.35, 1.81, 1.56];
+                        const data = {
+                            labels: ['MRR', 'ASR@1', 'ASR@5', 'ASR@10', 'ANR'],
+                            datasets: [{
+                                label: "Result",
+                                data: [metrics.MRR, metrics.ASR1, metrics.ASR5, metrics.ASR10, metrics.ANR],
+                                fill: true,
+                                backgroundColor: 'rgba(220,208,255, 0.8)',
+                                borderColor: 'rgb(128, 0, 128)',
+                                pointBackgroundColor: 'rgb(220,208,255)',
+                                pointBorderColor: '#fff',
+                                pointHoverBackgroundColor: '#fff',
+                                pointHoverBorderColor: 'rgb(255, 99, 132)'
+                            }]
                         }
-                    });
-                    // 模型设置显示
-                    var model_name = model_setting._name_or_path;
-                    var num_hidden_layers = model_setting.num_hidden_layers;
-                    var real_test_time = model_setting.test_time;
-                    var real_name = document.getElementById("real_name");
-                    var structure = document.getElementById("structure");
-                    var layer_num = document.getElementById("layer-num");
-                    var test_time = document.getElementById("test-time");
-                    real_name.innerHTML = model_name;
-                    structure.innerHTML = model_name;
-                    layer_num.innerHTML = num_hidden_layers;
-                    test_time.innerHTML = real_test_time;
-                    ask4data.innerHTML = "";
-                    alert("成功得到数据");
-                    document.getElementById("inside").style.opacity = 1;
-                    document.getElementById("model-setting").style.opacity = 1;
-                    content();
-                    cover.remove();
-                },
-                error: function() {
-                    alert("连接出错, 未能获取数据...");
-                    cover.remove();
+                        new Chart(ctx, {
+                            type: 'radar',
+                            data: data,
+                            options: {
+                                responsive: true, // 设置图表为响应式，根据屏幕窗口变化而变化
+                                maintainAspectRatio: false, // 保持图表原有比例
+                                elements: {
+                                    line: {
+                                        borderWidth: 3 // 设置线条宽度
+                                    }
+                                },
+                                scale: {
+                                    min: 0,
+                                    max: 5
+                                }
+                            }
+                        });
+                        // 模型设置显示
+                        var model_name = model_setting._name_or_path;
+                        var num_hidden_layers = model_setting.num_hidden_layers;
+                        var real_test_time = model_setting.test_time;
+                        var real_name = document.getElementById("real_name");
+                        var structure = document.getElementById("structure");
+                        var layer_num = document.getElementById("layer-num");
+                        var test_time = document.getElementById("test-time");
+                        real_name.innerHTML = model_name;
+                        structure.innerHTML = model_name;
+                        layer_num.innerHTML = num_hidden_layers;
+                        test_time.innerHTML = real_test_time;
+                        ask4data.innerHTML = "";
+                        alert("成功得到数据");
+                        document.getElementById("inside").style.opacity = 1;
+                        document.getElementById("model-setting").style.opacity = 1;
+                        content();
+                        cover.remove();
+                    },
+                    error: function () {
+                        alert("连接出错, 未能获取数据...");
+                        cover.remove();
+                    }
+                });
+            }
+            else {
+                // sleep(3);
+                cover.remove();
+                var charts = $("div.chart");
+                $(charts[0]).children().remove();
+                $(charts[0]).append($("<canvas />", {
+                    id: "myChart"
+                }));
+                const ctx = document.getElementById('myChart');
+                var metrics = {
+                    MRR: 3.16,
+                    ASR1: 2.98,
+                    ASR5: 3.08,
+                    ASR10: 3.10,
+                    ANR: 2.12,
+                    Length: 10952
+                };
+                const data = {
+                    labels: ['MRR', 'ASR@1', 'ASR@5', 'ASR@10', 'ANR'],
+                    datasets: [{
+                        label: "Result",
+                        data: [metrics.MRR, metrics.ASR1, metrics.ASR5, metrics.ASR10, metrics.ANR],
+                        fill: true,
+                        backgroundColor: 'rgba(220,208,255, 0.8)',
+                        borderColor: 'rgb(128, 0, 128)',
+                        pointBackgroundColor: 'rgb(220,208,255)',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: 'rgb(255, 99, 132)'
+                    }]
                 }
-            });
+                new Chart(ctx, {
+                    type: 'radar',
+                    data: data,
+                    options: {
+                        responsive: true, // 设置图表为响应式，根据屏幕窗口变化而变化
+                        maintainAspectRatio: false, // 保持图表原有比例
+                        elements: {
+                            line: {
+                                borderWidth: 3 // 设置线条宽度
+                            }
+                        },
+                        scale: {
+                            min: 0,
+                            max: 5
+                        }
+                    }
+                });
+                // 模型设置显示
+                var model_name = "microsoft/codebert-base";
+                var num_hidden_layers = "12";
+                var real_test_time = "34s";
+                var real_name = document.getElementById("real_name");
+                var structure = document.getElementById("structure");
+                var layer_num = document.getElementById("layer-num");
+                var test_time = document.getElementById("test-time");
+                real_name.innerHTML = model_name;
+                structure.innerHTML = model_name;
+                layer_num.innerHTML = num_hidden_layers;
+                test_time.innerHTML = real_test_time;
+                ask4data.innerHTML = "";
+                alert("成功得到数据");
+                document.getElementById("inside").style.opacity = 1;
+                document.getElementById("model-setting").style.opacity = 1;
+                content();
+                synthesis_chart();
+            }
         }
 
         function content() {
@@ -295,6 +373,52 @@
             } else {
                 summary.innerHTML = "整体看来, 该模型的后门攻击水平为: <h5>" + rate[4 - avg_score] + "</h5>";
             }
+        }
+
+        function synthesis_chart() {
+            var charts = $("div.chart");
+            $(charts[0]).children().remove();
+            $(charts[0]).append($("<canvas />", {
+                id: "synthesis_chart"
+            }));
+            const synthesis_ctx = document.getElementById('synthesis_chart');
+            const synthesis_data = {
+                labels: [
+                    '较差',
+                    '一般',
+                    '中等',
+                    '良好',
+                    '优秀'
+                ],
+                datasets: [{
+                    label: '环形图实例',
+                    data: [20, 20, 20, 20, 20],
+                    backgroundColor: [
+                        'rgb(255, 99, 132)',
+                        'rgb(255, 159, 64)',
+                        'rgb(255, 205, 86)',
+                        'rgb(75, 192, 192)',
+                        'rgb(54, 162, 235)'
+                    ],
+                    hoverOffset: 4
+                }]
+            };
+            const synthesis_config = {
+                type: 'doughnut',
+                data: synthesis_data,
+                options: {
+                    responsive: true, // 设置图表为响应式，根据屏幕窗口变化而变化
+                    maintainAspectRatio: false,// 保持图表原有比例
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                }
+            };
+            const synthesis_chart = new Chart(synthesis_ctx, synthesis_config);
         }
     </script>
 </body>

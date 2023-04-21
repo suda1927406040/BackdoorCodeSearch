@@ -28,7 +28,7 @@
             <div class="col-lg-4" id="system-intro">
                 <div class="container">
                     <div class="row">
-                        <span id="sys-block"></span>六大评估体系
+                        <span id="sys-block"></span>n维评估体系
                     </div>
                     <br>
                     <div class="row">rate1</div>
@@ -37,6 +37,7 @@
                     <div class="row">rate4</div>
                     <div class="row">rate5</div>
                     <div class="row">rate6</div>
+                    <div class="row">&nbsp;&nbsp;...</div>
                 </div>
             </div>
             <div class="col-lg-4" id="rule-intro">
@@ -44,9 +45,9 @@
                     <div class="row">模型评估排行</div>
                     <br>
                     <div class="row">排行范围：服务于同种任务的不同模型</div>
-                    <div class="row">排行依据：六大维度平均得分</div>
+                    <div class="row">排行依据: n个维度平均得分</div>
                     <div class="row">评分方式：各模型独立评估计算得分</div>
-                    <div class="row">评分体系: 0-5分评分方式</div>
+                    <div class="row">评分体系:&nbsp;&nbsp;0-5分评分方式</div>
                     <div class="row">&nbsp;</div>
                     <div class="row">&nbsp;</div>
                 </div>
@@ -58,32 +59,32 @@
     <br><br><br>
     <div class="container">
         <div class="row">
-            <h3>选择应用场景</h3>
+            <h3>&nbsp; &nbsp;选择应用场景</h3>
         </div>
         <!-- <div class="container" style="background-color: #87CEFA;"> -->
         <div class="row" style="background-color: #87CEFA;" id="func_select1">
-            <div class="col-xs-offset-1 col-lg-2" id="task-type1">代码搜素</div>
-            <div class="col-lg-2">
-                <a href="#" id="search">代码搜索模型评估</a>
+            <div class="col-xs-offset-1 col-lg-2" id="task-type1"><span class="glyphicon glyphicon-search" aria-hidden="true"></span>代码搜素</div>
+            <div class="col-lg-2" id="search">
+                代码搜索模型评估
             </div>
         </div>
         <div class="row" style="background-color: #87CEFA;" id="func_select2">
-            <div class="col-xs-offset-1 col-lg-2" id="task-type2">后门攻击</div>
-            <div class="col-lg-2">
-                <a href="#" id="attack">后门攻击评估</a>
+            <div class="col-xs-offset-1 col-lg-2" id="task-type2"><span class="glyphicon glyphicon-flash" aria-hidden="true"></span>后门攻击</div>
+            <div class="col-lg-2" id="attack">
+                后门攻击评估
             </div>
-            <div class="col-lg-2">
-                <a href="#" id="defence">后门攻击防御</a>
+            <div class="col-lg-2" id="defence">
+                防御检测后门
             </div>
-            <div class="col-lg-2">
-                <a href="#" id="inject">后门注入污染</a>
+            <div class="col-lg-2" id="inject">
+                数据植入后门
             </div>
         </div>
         <!-- </div> -->
     </div>
     <!-- <br><br><br> -->
 
-    <div class=" container-fluid " id="page-bottom ">
+    <div class="container-fluid " id="page-bottom">
         <p class="foot ">© 2023 YMZ</p>
     </div>
 
@@ -142,12 +143,29 @@
             });
             window.top.location = "http://127.0.0.1:5000/home/search_eval"
         });
+        search.addEventListener("mouseover", function() {
+            search.style.backgroundColor = "#1E90FF";
+            // search.style.borderColor = "#0075bd";
+            // search.style.borderWidth = "3px";
+            this.style.cursor = "pointer";
+        });
+        search.addEventListener("mouseout", function() {
+            // search.style.borderWidth = "0px";
+            search.style.backgroundColor = "#ffffff";
+        });
         attack.addEventListener("click", function() {
             $.ajax({
                 url: "/home/attack",
                 contentType: "GET",
             });
             window.top.location = "http://127.0.0.1:5000/home/attack"
+        });
+        attack.addEventListener("mouseover", function() {
+            attack.style.backgroundColor = "#1E90FF";
+            this.style.cursor = "pointer";
+        });
+        attack.addEventListener("mouseout", function() {
+            attack.style.backgroundColor = "#ffffff";
         });
         inject.addEventListener("click", function() {
             $.ajax({
@@ -156,12 +174,26 @@
             });
             window.top.location = "http://127.0.0.1:5000/home/inject"
         });
+        inject.addEventListener("mouseover", function() {
+            inject.style.backgroundColor = "#1E90FF";
+            this.style.cursor = "pointer";
+        });
+        inject.addEventListener("mouseout", function() {
+            inject.style.backgroundColor = "#ffffff";
+        });
         defence.addEventListener("click", function() {
             $.ajax({
                 url: "/home/defence",
                 contentType: "GET",
             });
             window.top.location = "http://127.0.0.1:5000/home/defence"
+        });
+        defence.addEventListener("mouseover", function() {
+            defence.style.backgroundColor = "#1E90FF";
+            this.style.cursor = "pointer";
+        });
+        defence.addEventListener("mouseout", function() {
+            defence.style.backgroundColor = "#ffffff";
         });
     </script>
 </body>

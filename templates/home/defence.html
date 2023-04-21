@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
     <link rel="stylesheet" type="text/css" href="/static/css/eval.css" />
-    <link rel="stylesheet" type="text/css" href="/static/css/style.css">
     <link rel="stylesheet" type="text/css" href="/static/css/defence.css">
     <!--    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" rel="stylesheet">
@@ -20,7 +19,7 @@
     <br>
     <br>
     <!-- 防御数据获取部分 -->
-    <div class="container" style="background-image: linear-gradient(#28acfd, #87CEFA, #d4ecfb);">
+    <div class="container" id="eval" style="background-image: linear-gradient(#237ee6, #28acfd, #87CEFA);">
         <form action="/home/defence_result" method="post" enctype="multipart/form-data">
             <div class="row">
                 <h3>请注意，上传数据集的格式为.jsonl文件</h3>
@@ -32,10 +31,20 @@
                 <div id="train-info" class="info"></div>
                 <button type="reset" onclick="reset_set()" class="lock">清空</button>
             </div>
+            <div class="col-lg-4"><input type="file" id="model-py" name="model-py">
+                <label for="model-py"><i class="fa-solid fa-upload"></i>&nbsp;上传模型参数文件(.json)</label>
+                <div id="model-py-info" class="info"></div>
+                <button type="reset" onclick="reset_set()" class="lock">清空</button>
+                <button type="button" class="lock">格式范例</button>
+                <img src="../../static/images/config.png">
+            </div>
+            <div class="col-lg-4"><input type="file" id="model-bin" name="model-bin">
+                <label for="model-bin"><i class="fa-solid fa-upload"></i>&nbsp;上传模型文件(.bin)</label>
+                <div id="model-bin-info" class="info"></div>
+                <button type="reset" onclick="reset_model()" class="lock">清空</button>
+            </div>
             <br>
             <br>
-            <div class="col-lg-4">&nbsp;</div>
-            <div class="col-lg-4">&nbsp;</div>
             <div class="row">
                 <h3>输入后门攻击的方式(使用空格隔开)</h3>
                 <br>
@@ -65,7 +74,34 @@
         // var dataset = document.getElementById('dataset');
         // 获取数据集文件
         var train_data = document.getElementById("train-set");
-        train_info = document.getElementById("train-info");
+        var train_info = document.getElementById("train-info");
+        var model_py = document.getElementById("model-py");
+        var model_py_info = document.getElementById("model-py-info");
+        var model_bin = document.getElementById("model-bin");
+        var model_bin_info = document.getElementById("model-bin-info");
+        model_py.addEventListener("change", function(e) {
+
+            // alert(typeof(model_py.value));
+            if (!model_py.value.endsWith("json")) {
+                alert("请上传json文件!");
+                return;
+            }
+            // fd.append(model_py.value, e.target.files[0]);
+            // alert(fd.get(model_py.value));
+            model_py_info.innerHTML = "添加模型结构成功!";
+        })
+
+        model_bin.addEventListener("change", function() {
+
+            if (!model_bin.value.endsWith("bin")) {
+                alert("请上传.bin格式的模型文件!");
+                return;
+            }
+            model_bin_info.innerHTML = "添加模型结构成功!";
+        })
+
+
+
         train_data.addEventListener("change", function() {
 
             if (!train_data.value.endsWith("jsonl")) {

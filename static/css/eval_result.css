@@ -13,7 +13,7 @@ body {
     position: absolute;
     top: 250px;
     left: 200px;
-    width: 1500px;
+    /* width: 1500px; */
     height: 100px;
     border: 1px solid #87CEFA;
     border-radius: 50px;
@@ -25,8 +25,7 @@ body {
     height: 100px;
     line-height: 100px;
     /* background-color: #237ee6; */
-    background-image: linear-gradient(#28acfd, #87CEFA, #d4ecfb);
-    /* font-size: 5em; */
+    background-image: linear-gradient(#237ee6, #28acfd, #87CEFA);
     border-radius: 50px;
     color: white;
     position: relative;
@@ -36,17 +35,9 @@ body {
 
 #model-setting {
     background-color: #a8d7f77e;
-    width: 1500px;
+    /* width: 1500px; */
     height: 300px;
     border-radius: 15px;
-}
-
-#model-setting-bottom {
-    background-color: #ffffff;
-    width: 1475px;
-    height: 20px;
-    border-radius: 5px;
-    position: relative;
 }
 
 #model-info {
@@ -65,8 +56,9 @@ body {
 #model-pic {
     /* position: relative; */
     margin-top: 25px;
-    height: 200px;
+    height: 180px;
     width: auto;
+    /* margin-right: 5px; */
 }
 
 #ask-4-data {
@@ -88,7 +80,7 @@ body {
 #result {
     /* cursor: pointer; */
     border-radius: 5px;
-    height: 900px;
+    height: 1200px;
     /* background-color: #ccc; */
 }
 
@@ -117,7 +109,7 @@ body {
 }
 
 .title {
-    font-size: 25px;
+    font-size: 22px;
     font-family: Microsoft YaHei;
     font-weight: bolder;
 }
@@ -133,6 +125,11 @@ body {
     width: auto;
 }
 
+.equation:hover {
+    height: 160px;
+    width: auto;
+}
+
 .Metrics {
     font-weight: bold;
 }
@@ -141,4 +138,8 @@ h5 {
     color: blue;
     display: inline;
     /* white-space: nowrap; */
+}
+
+#myChart {
+    margin-top: 20px;
 }

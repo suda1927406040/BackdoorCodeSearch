@@ -10,6 +10,7 @@
     <link rel="stylesheet" type="text/css" href="/static/css/eval_result.css" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" rel="stylesheet">
     <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
@@ -51,7 +52,12 @@
                             <div class="content" id="recall-content"></div>
                         </div>
                     </div>
-                    <div class="col-lg-4">&nbsp;</div>
+                    <div class="col-lg-4">
+                        <!-- 柱状图 -->
+                        <div class="chart">
+                            <canvas id="myChart"></canvas>
+                        </div>
+                    </div>
                 </div>
                 <br>
                 <br>
@@ -61,6 +67,7 @@
                         <div class="Metrics">FPR</div>
                         <div class="description">FPR 解释<i class="glyphicon glyphicon-edit"></i></div>
                         <div id="mrr-des" class="description">假阳性率</div>
+
                     </div>
                     <div class="col-lg-6">
                         <div class="Metrics">Recall</div>
@@ -80,16 +87,17 @@
     </div>
 
     <script>
+        var askBackEnd = false;
         // document.getElementById("inside").style.opacity = 0.05;
         var ask4data = document.getElementById("ask-4-data");
         var show_data = document.getElementById("show-data");
         var results = null;
 
-        show_data.addEventListener("click", function() {
+        show_data.addEventListener("click", function () {
             // alert("评测中, 请耐心等待...");
             var cover = document.getElementById("cover");
             cover.style.height = "1000px";
-            cover.style.width = "1900px";
+            cover.style.width = "auto";
             cover.style.backgroundColor = "#ffffff";
             cover.style.textAlign = "center";
             // cover.style.fontSize = "15em";
@@ -97,7 +105,7 @@
             var width = 0;
             var timer;
             var _jd = document.getElementById("jd");
-            timer = setInterval(function() {
+            timer = setInterval(function () {
                 width += 1;
                 if (width === 99)
                     width = 0;
@@ -108,24 +116,41 @@
 
         // 获取防御数据
         function get_metrics() {
-            $.ajax({
-                url: "/home/defence_result",
-                contentType: "GET",
-                success: function(res) {
-                    // alert("姓名: " + data.name + "年龄: " + data.age);
-                    results = JSON.parse(res);
-                    console.log(results.FPR);
-                    console.log(results.Recall);
-                    document.getElementById("inside").style.opacity = 1;
-                    content();
-                    cover.remove();
-                    ask4data.innerHTML = "";
-                },
-                error: function() {
-                    alert("连接出错, 未能获取数据...");
-                    cover.remove();
-                }
-            });
+            if (askBackEnd) {
+                $.ajax({
+                    url: "/home/defence_result",
+                    contentType: "GET",
+                    success: function (res) {
+                        // alert("姓名: " + data.name + "年龄: " + data.age);
+                        results = JSON.parse(res);
+                        console.log(results.FPR);
+                        console.log(results.Recall);
+                        document.getElementById("inside").style.opacity = 1;
+                        content();
+                        cover.remove();
+                        ask4data.innerHTML = "";
+                    },
+                    error: function () {
+                        alert("连接出错, 未能获取数据...");
+                        cover.remove();
+                    }
+                });
+            }
+            else {
+                results = {
+                    FPR: 0.34,
+                    Recall: 0.27,
+                    poisoned_data_num: 1200,
+                    clean_data_num: 1200
+                };
+                console.log(results.FPR);
+                console.log(results.Recall);
+                document.getElementById("inside").style.opacity = 1;
+                content();
+                cover.remove();
+                ask4data.innerHTML = "";
+                FPR_chart();
+            }
         }
 
 
@@ -140,6 +165,42 @@
             poisoned_num.innerHTML = results.poisoned_data_num;
             clean_num.innerHTML = results.clean_data_num;
             // var summary = document.getElementById("summary");
+        }
+
+        function FPR_chart() {
+            var charts = $("div.chart");
+            $(charts[0]).children().remove();
+            $(charts[0]).append($("<canvas />", {
+                id: "myChart"
+            }));
+            const ctx = document.getElementById('myChart');
+            const labels = ['FPR', 'Recall'];  // 设置 X 轴上对应的标签
+            const data = {
+                labels: labels,
+                datasets: [{
+                    axis: 'y',
+                    label: '',
+                    data: [0.43, 0.27],
+                    fill: false,
+                    backgroundColor: [      // 设置每个柱形图的背景颜色
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                    ],
+                    borderColor: [     // 设置每个柱形图边框线条颜色
+                        'rgb(255, 99, 132)',
+                        'rgb(255, 159, 64)'
+                    ],
+                    borderWidth: 0.5    // 设置线条宽度
+                }]
+            };
+            const config = {
+                type: 'bar', // 设置图表类型
+                data: data,  // 设置数据集
+                options: {
+                    indexAxis: 'y',
+                }
+            };
+            const myChart = new Chart(ctx, config);
         }
     </script>
 </body>

@@ -4,22 +4,22 @@
 
 #task-type1 {
     background-color: #1E90FF;
-    width: 130px;
+    width: 170px;
     height: 150px;
     border: 10px solid #87CEFA;
     text-align: center;
     line-height: 130px;
-    color: #00FFFF;
+    color: #ffffff;
 }
 
 #task-type2 {
     background-color: #1E90FF;
-    width: 130px;
+    width: 170px;
     height: 150px;
     border: 10px solid #87CEFA;
     text-align: center;
     line-height: 130px;
-    color: #00FFFF;
+    color: #ffffff;
 }
 
 .col-lg-2 {
@@ -29,7 +29,13 @@
     border: 10px solid #87CEFA;
     text-align: center;
     line-height: 130px;
+    font-size: large;
 }
+
+
+/* .col-lg-2:hover {
+    color: #00FFFF;
+} */
 
 #system-intro {
     font-size: large;
@@ -80,7 +86,7 @@
     /* right: 5px; */
     height: 400px;
     /* background-color: #87CEFA; */
-    background-image: linear-gradient(#28acfd, #87CEFA, #d4ecfb);
+    background-image: linear-gradient(#237ee6, #28acfd, #87CEFA);
 }
 
 

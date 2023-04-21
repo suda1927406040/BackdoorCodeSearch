@@ -1,9 +1,12 @@
 .navbar {
     background-color: #237ee6;
     color: #fff;
-    height: 65px;
+    height: 55px;
 }
 
+#title {
+    margin-top: 5px;
+}
 
 /* .newactive {
     background-color: #87CEFA;
@@ -14,10 +17,37 @@
 }
 
 .nav-content {
+    /* height: 55px; */
+    text-align: center;
     color: #ffffff;
-    font-size: large;
+    font-size: medium;
+    width: 120px;
 }
+
+.nav-content:hover {
+    /* color: aqua; */
+    background-color: #539bec;
+}
+
+
+/* li:focus {
+    color: aqua;
+} */
 
 li {
     height: 85px;
+}
+
+#logout {
+    background-color: #1E90FF;
+    border-color: #fff;
+    color: #fff;
+}
+
+#logout:hover {
+    color: aqua;
+}
+
+a:hover {
+    background-color: aqua;
 }
