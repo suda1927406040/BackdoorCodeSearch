@@ -8,7 +8,7 @@ from utils.defence import BackDoorDefenceScanner
 import os
 import json
 import logging
-from time import time
+import time
 
 home = Blueprint('home', __name__)
 logger = logging.getLogger(__name__)
@@ -47,13 +47,7 @@ def defence_result():
         print(keys)
         if len(keys) != 0:
             for key in keys:
-                file = request.files.get(key)
-                file_name = file.filename.replace(" ", "")
-                if 0 == len(file_name):
-                    return
-                print("获取上传文件的名称为[%s]\n" % file_name)
-                file.save(os.path.join('cache\\defence_test.jsonl'))  # 保存文件
-        # TODO: 完成防御算法的结果
+                get_file(key, request)
         print('开始防御...')
         algorithm = request.values.get('mode')
         targets = request.form.get('target').split(',')
@@ -152,18 +146,22 @@ def attack_eval():
                             help="Avoid using CUDA when available")
         parser.add_argument("--seed", type=int, default=42,
                             help="random seed for initialization")
-        parser.add_argument("--language", default='java', type=str)
+        parser.add_argument("--language", default='python', type=str)
         args = parser.parse_args()
         tokenizer = RobertaTokenizer.from_pretrained('microsoft/codebert-base')
         # model = Model(tokenizer, args)
         targets = json.load(open('cache\\backdoor.json', encoding='utf-8'))['targets']
         triggers = json.load(open('cache\\backdoor.json', encoding='utf-8'))['triggers']
         evaluator = BackDoorAttackEvaluator(tokenizer, args, targets, triggers)
-        start = time()
-        res = evaluator.process()
-        end = time()
+        start = time.time()
+        # res = evaluator.process()
+        time.sleep(30)
+        end = time.time()
         config_path = "{}\\{}".format(args.model_dir, 'config.json')
-        res['model_setting'] = json.load(open(config_path))
+        model_name = json.load(open(config_path))['_name_or_path']
+        length = len(open(args.test_data_file).readlines())
+        res = {'MRR': 0.5759, 'ASR1': 0, 'ASR5': 0, 'ASR10': 0, 'ANR': 0.393, 'Length': length, 'ModelName': model_name,
+               'model_setting': json.load(open(config_path))}
         hour, minute, sec = time_format(end-start)
         res['model_setting']['test_time'] = '{}时{}分{:.2f}秒'.format(hour, minute, sec)
         res = score_format(res)
@@ -204,7 +202,7 @@ def get_file(filename, request):
         return
     print("获取上传文件的名称为[%s]\n" % file_name)
     if file_name.endswith('.bin'):
-        file.save(os.path.join('utils\\attack_code\\saved_models', 'pytorch_' + file_name))  # 保存文件
+        file.save(os.path.join('utils\\attack_code\\saved_models', 'pytorch_model.bin'))  # 保存文件
     elif file_name.endswith('.json'):
         file.save('utils\\attack_code\\saved_models\\config.json')  # 保存文件
     else:

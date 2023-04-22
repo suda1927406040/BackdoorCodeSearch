@@ -111,7 +111,14 @@
                     </div>
                     <div class="col-lg-4">
                         <div class="title">模型评分排行<i class="glyphicon glyphicon-th-list"></i></div>
-                        <div id="rank"></div>
+                        <!-- 此处用jinja2模板进行数据展示 -->
+                        <div id="rank">
+                            {% for model_rank in model_ranks %}
+                            <li>{{model_rank.toString()}}</li>
+                            {% else %}
+                            <li>没有任何值</li>
+                            {% endfor %}
+                        </div>
                     </div>
                 </div><br><br>
                 <div class="row">
@@ -190,6 +197,7 @@
         var cover = document.getElementById("cover");
         var metrics = null;
         var model_setting = null;
+        var rank = document.getElementById("rank");
 
         show_data.addEventListener("click", function () {
             alert("评测中, 请耐心等待...");
@@ -277,7 +285,10 @@
                         alert("成功得到数据");
                         document.getElementById("inside").style.opacity = 1;
                         document.getElementById("model-setting").style.opacity = 1;
+                        // 评估结果展示
                         content();
+                        // 数据库中已有模型分数排名展示
+                        // get_ranks();
                         cover.remove();
                     },
                     error: function () {
@@ -412,6 +423,10 @@
             };
             new Chart(synthesis_ctx, synthesis_config);
         }
+
+        // function get_ranks() {
+
+        // }
     </script>
 </body>
 
