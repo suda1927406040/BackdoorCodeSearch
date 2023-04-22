@@ -7,9 +7,9 @@ scheduler.init_app(app)
 scheduler.start()
 
 
-@app.route('/')
-def index():
-    return '请进入/home/index'
+# @app.route('/')
+# def index():
+#     return '请进入/home/index'
 
 
 if __name__ == '__main__':

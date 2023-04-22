@@ -10,7 +10,6 @@ def root():
         return 'hello world'
 
 
-
 @login.route('/index', methods=['GET'])
 def index():
     if request.method == 'GET':
@@ -19,10 +18,10 @@ def index():
 
 @login.route('/login', methods=['POST'])
 def onlogin():
-    '''
+    """
     登录
     :return:
-    '''
+    """
     username = request.json['username']
     password = request.json['password']
 

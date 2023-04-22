@@ -1,3 +1,4 @@
+/*CREATE DATABASE `backdoor_eval`;*/
 USE `backdoor_eval`;
 /*Table structure for table `ymz_users` */
 create table `ymz_users`(
@@ -7,6 +8,10 @@ create table `ymz_users`(
     PRIMARY KEY (`u_id`),
     UNIQUE KEY `u_name` (`u_name`)
 )ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+/*Data for the table `ymz_users` */
+
+insert into `ymz_users`(`u_id`,`u_name`,`pwd`) values (00000001,'admin', 'admin');
 
 /*Table structure for table `ymz_rankings` */
 create table `ymz_rankings`(
@@ -19,7 +24,6 @@ create table `ymz_rankings`(
 )ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 
+/*Data for the table `ymz_rankings` */
 
-/*Data for the table `ymz_users` */
-
-insert into `ymz_users`(`u_id`,`u_name`,`pwd`) values (00000001,'admin', 'admin');
+insert into `ymz_rankings`(`u_id`, `m_id`,`m_name`, `score`) values (00000001, 00000001, 'Transformer', 4.17);
