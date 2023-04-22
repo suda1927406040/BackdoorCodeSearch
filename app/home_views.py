@@ -1,6 +1,5 @@
 import argparse
-
-from flask import Blueprint, session, request, redirect, url_for, render_template, jsonify, send_file, Response
+from flask import Blueprint, session, request, redirect, url_for, render_template, jsonify, Response
 from transformers import RobertaTokenizer
 from utils.inject import BackDoorInjector
 from utils.evaluation import BackDoorAttackEvaluator
@@ -52,16 +51,21 @@ def defence_result():
         algorithm = request.values.get('mode')
         targets = request.form.get('target').split(',')
         triggers = request.form.get('trigger').split(',')
-        json.dump({'targets': targets, 'triggers': triggers, 'algorithm': algorithm}, open('cache\\defence.json', 'w', encoding='utf-8'))
+        json.dump({'targets': targets, 'triggers': triggers, 'algorithm': algorithm}, open(
+            'cache\\defence.json', 'w', encoding='utf-8'))
         print('防御算法选择: ', algorithm)
         return render_template('/home/defence_result.html')
 
     if request.method == 'GET':
         # TODO: 完成防御算法结果的展示
-        targets = json.load(open('cache\\defence.json', encoding='utf-8'))['targets']
-        triggers = json.load(open('cache\\defence.json', encoding='utf-8'))['triggers']
-        algorithm = json.load(open('cache\\defence.json', encoding='utf-8'))['algorithm']
-        defender = BackDoorDefenceScanner('cache\\test.jsonl', 'cache\\', targets, triggers, mode=algorithm)
+        targets = json.load(
+            open('cache\\defence.json', encoding='utf-8'))['targets']
+        triggers = json.load(
+            open('cache\\defence.json', encoding='utf-8'))['triggers']
+        algorithm = json.load(
+            open('cache\\defence.json', encoding='utf-8'))['algorithm']
+        defender = BackDoorDefenceScanner(
+            'cache\\test.jsonl', 'cache\\', targets, triggers, mode=algorithm)
         res = json.loads(defender.process())
         res['mode'] = algorithm
         res = json.dumps(res)
@@ -93,7 +97,8 @@ def attack_eval():
     if request.method == 'POST':
         targets = request.form.get('target').split(',')
         triggers = request.form.get('trigger').split(',')
-        json.dump({'targets': targets, 'triggers': triggers}, open('cache\\backdoor.json', 'w', encoding='utf-8'))
+        json.dump({'targets': targets, 'triggers': triggers}, open(
+            'cache\\backdoor.json', 'w', encoding='utf-8'))
         keys = request.files.keys()
         if len(keys) != 0:
             for key in keys:
@@ -117,7 +122,8 @@ def attack_eval():
                             help="An optional input evaluation data file to evaluate the perplexity on (a text file).")
         parser.add_argument("--test_data_file", default='utils\\attack_code\\dataset\\test.jsonl', type=str,
                             help="An optional input evaluation data file to evaluate the perplexity on (a text file).")
-        parser.add_argument("--model_dir", default='utils\\attack_code\\saved_models', type=str)
+        parser.add_argument(
+            "--model_dir", default='utils\\attack_code\\saved_models', type=str)
         # parser.add_argument("--tokenizer_name_or_path", default='microsoft/codebert-base', type=str,
         #                     help="The model checkpoint for weights initialization.")
         parser.add_argument("--code_size", default=3000, type=int, )
@@ -150,8 +156,10 @@ def attack_eval():
         args = parser.parse_args()
         tokenizer = RobertaTokenizer.from_pretrained('microsoft/codebert-base')
         # model = Model(tokenizer, args)
-        targets = json.load(open('cache\\backdoor.json', encoding='utf-8'))['targets']
-        triggers = json.load(open('cache\\backdoor.json', encoding='utf-8'))['triggers']
+        targets = json.load(open('cache\\backdoor.json',
+                            encoding='utf-8'))['targets']
+        triggers = json.load(
+            open('cache\\backdoor.json', encoding='utf-8'))['triggers']
         evaluator = BackDoorAttackEvaluator(tokenizer, args, targets, triggers)
         start = time.time()
         # res = evaluator.process()
@@ -163,7 +171,8 @@ def attack_eval():
         res = {'MRR': 0.5759, 'ASR1': 0, 'ASR5': 0, 'ASR10': 0, 'ANR': 0.393, 'Length': length, 'ModelName': model_name,
                'model_setting': json.load(open(config_path))}
         hour, minute, sec = time_format(end-start)
-        res['model_setting']['test_time'] = '{}时{}分{:.2f}秒'.format(hour, minute, sec)
+        res['model_setting']['test_time'] = '{}时{}分{:.2f}秒'.format(
+            hour, minute, sec)
         res = score_format(res)
         print('result:', res)
         print('完成GET请求...')
@@ -202,11 +211,13 @@ def get_file(filename, request):
         return
     print("获取上传文件的名称为[%s]\n" % file_name)
     if file_name.endswith('.bin'):
-        file.save(os.path.join('utils\\attack_code\\saved_models', 'pytorch_model.bin'))  # 保存文件
+        file.save(os.path.join('utils\\attack_code\\saved_models',
+                  'pytorch_model.bin'))  # 保存文件
     elif file_name.endswith('.json'):
         file.save('utils\\attack_code\\saved_models\\config.json')  # 保存文件
     else:
-        file.save(os.path.join('utils\\attack_code\\saved_models', file_name))  # 保存文件
+        file.save(os.path.join(
+            'utils\\attack_code\\saved_models', file_name))  # 保存文件
 
 
 @home.route('/inject_main', methods=['GET'])
@@ -237,7 +248,8 @@ def inject_result():
     if request.method == 'GET':     # 返回backdoor后的数据集, 供用户下载
         injector = BackDoorInjector()
         injector.inject()
-        format_poisoned('cache\\rb-xt-il-ite-wb_function_definition-parameters-default_parameter-typed_parameter-typed_default_parameter-assignment-ERROR_file_100_1_train.txt')
+        format_poisoned(
+            'cache\\rb-xt-il-ite-wb_function_definition-parameters-default_parameter-typed_parameter-typed_default_parameter-assignment-ERROR_file_100_1_train.txt')
         file_name = "cache\\poisoned_datas.jsonl"
         response = Response(file_send(file_name), content_type='jsonl')
         response.headers["Content-disposition"] = f'attachment; filename={file_name}'

@@ -13,7 +13,7 @@ class User(db.Model):
     # 用户表
     # 定义表名
     __tablename__ = 'ymz_users'
-    user_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    user_id = db.Column(db.Integer(), autoincrement=True, primary_key=True)
     username = db.Column(db.String(6), unique=True)
     password = db.Column(db.String(16))
 
@@ -28,7 +28,7 @@ class Ranking(db.Model):
     # 评估输入表
     # 定义表名
     __tablename__ = 'ymz_rankings'
-    model_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    model_id = db.Column(db.Integer(), autoincrement=True, primary_key=True)
     model_name = db.Column(db.String(16))
     score = db.Column(db.Float)
 
