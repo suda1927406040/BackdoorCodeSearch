@@ -19,8 +19,7 @@
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
                 <!-- <a class="navbar-brand" href="#"> -->
-                <div class="nav-content" id="title"><span class="glyphicon glyphicon-search"
-                        aria-hidden="true"></span>&nbsp;Backdoor Evalutation</div>
+                <div class="nav-content" id="title"><span class="glyphicon glyphicon-search" aria-hidden="true"></span>&nbsp;Backdoor Evalutation</div>
                 <!-- </a> -->
                 <!-- <a class="navbar-brand" href="#"><img src="../../static/images/main.png" style="width: 60px; height: 40px;"></a> -->
             </div>
@@ -73,11 +72,11 @@
         var inject = document.getElementById("inject");
 
 
-        title.addEventListener("mouseover", function () {
+        title.addEventListener("mouseover", function() {
             title.style.backgroundColor = "#1E90FF";
             this.style.cursor = "pointer";
         });
-        title.addEventListener("mouseout", function () {
+        title.addEventListener("mouseout", function() {
             title.style.backgroundColor = "#237ee6";
         });
 
@@ -85,41 +84,48 @@
             index.focus();
         }
 
-        index.addEventListener("click", function () {
+        index.addEventListener("click", function() {
             $.ajax({
                 url: "/home/index",
                 contentType: "GET",
             });
             window.top.location = "http://127.0.0.1:5000/home/index"
         });
-        search.addEventListener("click", function () {
+        search.addEventListener("click", function() {
             $.ajax({
                 url: "/home/search_eval",
                 contentType: "GET",
             });
             window.top.location = "http://127.0.0.1:5000/home/search_eval"
         });
-        attack.addEventListener("click", function () {
+        attack.addEventListener("click", function() {
             $.ajax({
                 url: "/home/attack",
                 contentType: "GET",
             });
             window.top.location = "http://127.0.0.1:5000/home/attack"
         });
-        inject.addEventListener("click", function () {
+        inject.addEventListener("click", function() {
             $.ajax({
                 url: "/home/inject",
                 contentType: "GET",
             });
             window.top.location = "http://127.0.0.1:5000/home/inject"
         });
-        defence.addEventListener("click", function () {
+        defence.addEventListener("click", function() {
             $.ajax({
                 url: "/home/defence",
                 contentType: "GET",
             });
             window.top.location = "http://127.0.0.1:5000/home/defence"
         });
+
+        function onlogout() {
+            $.ajax({
+                url: "/home/loginout",
+                contentType: "GET"
+            });
+        }
     </script>
 </body>
 

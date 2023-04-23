@@ -114,7 +114,7 @@
                         <!-- 此处用jinja2模板进行数据展示 -->
                         <div id="rank">
                             {% for model_rank in model_ranks %}
-                            <li>{{model_rank.toString()}}</li>
+                            <li>{{model_rank}}</li>
                             {% else %}
                             <li>没有任何值</li>
                             {% endfor %}
@@ -128,8 +128,7 @@
                             <img src="../../static/images/mrr.png" class="equation">
                         </div>
                         <div class="description">MRR 解释<i class="glyphicon glyphicon-edit"></i></div>
-                        <div id="mrr-des" class="description">评估代码搜索系统在干净数据集上的性能, 使用平均倒数秩(MRR),
-                            该方法已被广泛应用于信息检索的评估中。Q为查询集的大小, 为c真实的候选值, Rank(·, ·)为其在检索结果中的对应排名。MRR根据其排名给出了预测结果的评分。</div>
+                        <div id="mrr-des" class="description">评估代码搜索系统在干净数据集上的性能, 使用平均倒数秩(MRR), 该方法已被广泛应用于信息检索的评估中。Q为查询集的大小, 为c真实的候选值, Rank(·, ·)为其在检索结果中的对应排名。MRR根据其排名给出了预测结果的评分。</div>
                     </div>
                     <div class="col-lg-6">
                         <div class="Metrics">&nbsp;&nbsp;&nbsp;ASR@1<br>
@@ -162,8 +161,7 @@
                             <img src="../../static/images/anr.png" class="equation">
                         </div>
                         <div class="description">&nbsp;&nbsp;&nbsp;ANR 解释<i class="glyphicon glyphicon-edit"></i></div>
-                        <div id="anr-des" class="description">评估数据中毒攻击策略的有效性，使用了平均归一秩(ANR)。c'表示执行攻击后的候选对象,
-                            |C|为完整排名列表的长度。后门攻击, 目的是将中毒的候选代码提升到榜首。ANR表示攻击后的平均归一化排名, ANR的值越小, 攻击性能越好。但五分制化后都是越大越好。</div>
+                        <div id="anr-des" class="description">评估数据中毒攻击策略的有效性，使用了平均归一秩(ANR)。c'表示执行攻击后的候选对象, |C|为完整排名列表的长度。后门攻击, 目的是将中毒的候选代码提升到榜首。ANR表示攻击后的平均归一化排名, ANR的值越小, 攻击性能越好。但五分制化后都是越大越好。</div>
                     </div>
                     <div class="col-lg-6">
                         <div class="Metrics">&nbsp;&nbsp;&nbsp;综上所述
@@ -199,7 +197,7 @@
         var model_setting = null;
         var rank = document.getElementById("rank");
 
-        show_data.addEventListener("click", function () {
+        show_data.addEventListener("click", function() {
             alert("评测中, 请耐心等待...");
             console.log(cover);
             cover.className = "container-fluid";
@@ -212,7 +210,7 @@
             var width = 0;
             var timer;
             var _jd = document.getElementById("jd");
-            timer = setInterval(function () {
+            timer = setInterval(function() {
                 width += 1;
                 if (width === 99)
                     width = 0;
@@ -226,7 +224,7 @@
                 $.ajax({
                     url: "/home/attack_eval",
                     contentType: "GET",
-                    success: function (res) {
+                    success: function(res) {
                         // alert("姓名: " + data.name + "年龄: " + data.age);
                         metrics = JSON.parse(res);
                         model_setting = metrics.model_setting;
@@ -291,13 +289,12 @@
                         // get_ranks();
                         cover.remove();
                     },
-                    error: function () {
+                    error: function() {
                         alert("连接出错, 未能获取数据...");
                         cover.remove();
                     }
                 });
-            }
-            else {
+            } else {
                 // sleep(3);
                 cover.remove();
                 var charts = $("div.chart");
@@ -418,7 +415,7 @@
                 data: synthesis_data,
                 options: {
                     responsive: true, // 设置图表为响应式，根据屏幕窗口变化而变化
-                    maintainAspectRatio: false,// 保持图表原有比例
+                    maintainAspectRatio: false, // 保持图表原有比例
                 }
             };
             new Chart(synthesis_ctx, synthesis_config);

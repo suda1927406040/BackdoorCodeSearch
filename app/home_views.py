@@ -4,6 +4,7 @@ from transformers import RobertaTokenizer
 from utils.inject import BackDoorInjector
 from utils.evaluation import BackDoorAttackEvaluator
 from utils.defence import BackDoorDefenceScanner
+# from app.models import *
 import os
 import json
 import logging
@@ -103,7 +104,8 @@ def attack_eval():
         if len(keys) != 0:
             for key in keys:
                 get_file(key, request)  # 所有的数据被保存
-        return render_template('/home/attack_eval_result.html')
+        model_ranks = [{'name': 'Transformer', 'score': 3.18, 'uploader': 'admin'}, {'name': 'BERT', 'score': 2.18, 'uploader': 'admin'}]
+        return render_template('/home/attack_eval_result.html', model_ranks=model_ranks)
 
     # 请求数据, 将后端评测结果返回
     if request.method == 'GET':

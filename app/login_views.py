@@ -31,12 +31,12 @@ def onlogin():
         return msg
 
     # 核对用户名和密码是否一致
-    user = User.query.filter_by(username=username, password=password).first()
+    user = User.query.filter_by(u_name=username, pwd=password).first()
     # 如果用户名和密码一致
     if user:
         # 向session中写入相应的数据
-        session['user_id'] = user.user_id
-        session['username'] = user.username
+        session['u_id'] = user.u_id
+        session['u_name'] = user.u_name
         msg = '1'
         return msg
     # 如果用户名或者密码不一致，则返回并提示
