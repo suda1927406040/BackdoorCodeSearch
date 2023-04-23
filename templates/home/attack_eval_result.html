@@ -114,7 +114,7 @@
                         <!-- 此处用jinja2模板进行数据展示 -->
                         <div id="rank">
                             {% for model_rank in model_ranks %}
-                            <li>{{model_rank}}</li>
+                            <li class="ranking">{{model_rank}}</li>
                             {% else %}
                             <li>没有任何值</li>
                             {% endfor %}
@@ -209,13 +209,14 @@
             cover.innerHTML = "<br><br><h1>评估中, 请稍后...</h1><div class='wrapper' id='wrapper'><div id='jd' class='first'></div></div>";
             var width = 0;
             var timer;
-            var _jd = document.getElementById("jd");
-            timer = setInterval(function() {
-                width += 1;
-                if (width === 99)
-                    width = 0;
-                document.getElementsByClassName("first")[0].style.width = width + "%";
-            }, 3);
+            // var _jd = document.getElementById("jd");
+            // timer = setInterval(function() {
+            //     width += 1;
+            //     if (width === 99)
+            //         width = 0;
+            //     document.getElementsByClassName("first")[0].style.width = width + "%";
+            //     clearInterval(timer);
+            // }, 3);
         });
 
         // 获取评测数据
@@ -357,7 +358,29 @@
                 alert("成功得到数据");
                 document.getElementById("inside").style.opacity = 1;
                 document.getElementById("model-setting").style.opacity = 1;
-                var rate = content();
+                var content_results = content();
+                var rate = content_results[0];
+                var score = content_results[1];
+                // var rank = document.getElementById("rank");
+                var previous_rankings = rank.children;
+                var rankings = [];
+                for (let i = 0; i < previous_rankings.length; ++i) {
+                    console.log(previous_rankings[i].innerHTML);
+                    let previous_ranking = JSON.parse(previous_rankings[i].innerHTML); // 获取对象
+                    rankings.append(previous_ranking);
+                }
+                rankings.append({
+                    name: model_name,
+                    score: score,
+                    uploader: 'admin'
+                });
+                rank.innerHTML = "";
+                rankings.sort(by("score"));
+                console.log(rankings);
+                for (let i = 0; i < previous_rankings.length; ++i) {
+                    let item = previous_rankings[i];
+                    rank.appendChild("模型名称: " + item.model_name + ", 得分: " + item.score + ", 上传者:" + item.uploader);
+                }
                 synthesis_chart(rate);
             }
         }
@@ -382,7 +405,7 @@
             } else {
                 summary.innerHTML = "整体看来, 该模型的后门攻击水平为: <h5>" + rate[4 - avg_score] + "</h5>";
             }
-            return 4 - avg_score;
+            return [4 - avg_score, (metrics.MRR + metrics.ASR1 + metrics.ASR5 + metrics.ASR10 + metrics.ANR) / 5];
         }
 
         function synthesis_chart(rate) {
