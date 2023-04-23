@@ -104,14 +104,14 @@ def attack_eval():
         if len(keys) != 0:
             for key in keys:
                 get_file(key, request)  # 所有的数据被保存
-        model_ranks = [{'name': 'Transformer', 'score': 3.18, 'uploader': 'admin'}, {'name': 'BERT', 'score': 2.18, 'uploader': 'admin'}]
+        model_ranks = [{"name": "Transformer", "score": "3.18", "uploader": "admin"}, {"name": "BERT", "score": "2.18", "uploader": "admin"}]
         return render_template('/home/attack_eval_result.html', model_ranks=model_ranks)
 
     # 请求数据, 将后端评测结果返回
     if request.method == 'GET':
         print('开始处理GET请求...')
         parser = argparse.ArgumentParser()
-
+        time.sleep(30)
         # Required parameters
         parser.add_argument("--eval_batch_size", default=32, type=int,
                             help="Batch size per GPU/CPU for evaluation.")
