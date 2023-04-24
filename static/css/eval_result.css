@@ -145,8 +145,22 @@ h5 {
     /* white-space: nowrap; */
 }
 
-#myChart {
-    margin-top: 20px;
+li {
+    list-style: none;
+    text-align: center;
+    /* li标签的宽度 */
+    width: auto;
+    /* li标签的高度，文字内容不会垂直居中 */
+    height: 60px;
+    /* li标签的高度，文字内容自动垂直居中。若已设置高度，需2个高度一致 */
+    line-height: 60px;
+    /* li标签的外边距 */
+    margin: 10px;
+    /* li标签边框 */
+    border: 1px solid #000;
+    border-radius: 5px;
+    box-shadow: 5px 5px 30px rgba(.2, .2, .2, .2);
+    /* box-shadow: 0 y-shadow 10px 10px rgba(0, 0, 0, .2); */
 }
 
 #synthesis_chart {

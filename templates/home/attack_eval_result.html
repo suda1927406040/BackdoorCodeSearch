@@ -315,6 +315,7 @@
                     ANR: 2.12,
                     Length: 10952
                 };
+
                 new Chart(ctx, {
                     type: 'radar',
                     data: {
@@ -368,22 +369,26 @@
                 var previous_rankings = rank.children;
                 var rankings = [];
                 for (let i = 0; i < previous_rankings.length; ++i) {
-                    let item = previous_rankings[i].innerHTML;
-                    let _nstr = item.replace(/'/g, '"');
-                    let previous_ranking = JSON.parse(_nstr); // 获取对象
-                    rankings.append(previous_ranking);
+                    // let item = previous_rankings[i].innerHTML;
+                    // let _nstr = item.replace(/'/g, '"');
+                    // let previous_ranking = JSON.parse(_nstr); // 获取对象
+                    // rankings.push(previous_ranking);
                 }
-                rankings.append({
+                rankings.push({
                     name: model_name,
                     score: score,
                     uploader: 'admin'
                 });
                 rank.innerHTML = "";
-                rankings.sort(by("score"));
-                for (let i = 0; i < previous_rankings.length; ++i) {
-                    let item = previous_rankings[i];
-                    rank.appendChild("模型名称: " + item.model_name + ", 得分: " + item.score + ", 上传者:" + item.uploader);
+                rankings.sort(function (a, b) { return b.score - a.score });
+                var inner = "";
+                for (let i = 0; i < rankings.length; ++i) {
+                    let item = rankings[i];
+                    inner += "<li class='ranking'>模型名称: " + item.model_name + ", 得分: " + item.score + ", 上传者:" + item.uploader + "</li>";
                 }
+                // console.log(inner);
+                rank.innerHTML = inner;
+                // console.log(rank);
                 synthesis_chart(rate);
             }
         }
@@ -409,7 +414,7 @@
             } else {
                 summary.innerHTML = "整体看来, 该模型的后门攻击水平为: <h5>" + rate[4 - avg_score] + "</h5>";
             }
-            return [4 - avg_score, (metrics.MRR + metrics.ASR1 + metrics.ASR5 + metrics.ASR10 + metrics.ANR) / 5];
+            return [4 - avg_score, ((metrics.MRR + metrics.ASR1 + metrics.ASR5 + metrics.ASR10 + metrics.ANR) / 5).toFixed(3)];
         }
 
         function synthesis_chart(rate) {
