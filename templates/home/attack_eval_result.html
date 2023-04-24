@@ -128,7 +128,8 @@
                             <img src="../../static/images/mrr.png" class="equation">
                         </div>
                         <div class="description">MRR 解释<i class="glyphicon glyphicon-edit"></i></div>
-                        <div id="mrr-des" class="description">评估代码搜索系统在干净数据集上的性能, 使用平均倒数秩(MRR), 该方法已被广泛应用于信息检索的评估中。Q为查询集的大小, 为c真实的候选值, Rank(·, ·)为其在检索结果中的对应排名。MRR根据其排名给出了预测结果的评分。</div>
+                        <div id="mrr-des" class="description">评估代码搜索系统在干净数据集上的性能, 使用平均倒数秩(MRR),
+                            该方法已被广泛应用于信息检索的评估中。Q为查询集的大小, 为c真实的候选值, Rank(·, ·)为其在检索结果中的对应排名。MRR根据其排名给出了预测结果的评分。</div>
                     </div>
                     <div class="col-lg-6">
                         <div class="Metrics">&nbsp;&nbsp;&nbsp;ASR@1<br>
@@ -161,7 +162,8 @@
                             <img src="../../static/images/anr.png" class="equation">
                         </div>
                         <div class="description">&nbsp;&nbsp;&nbsp;ANR 解释<i class="glyphicon glyphicon-edit"></i></div>
-                        <div id="anr-des" class="description">评估数据中毒攻击策略的有效性，使用了平均归一秩(ANR)。c'表示执行攻击后的候选对象, |C|为完整排名列表的长度。后门攻击, 目的是将中毒的候选代码提升到榜首。ANR表示攻击后的平均归一化排名, ANR的值越小, 攻击性能越好。但五分制化后都是越大越好。</div>
+                        <div id="anr-des" class="description">评估数据中毒攻击策略的有效性，使用了平均归一秩(ANR)。c'表示执行攻击后的候选对象,
+                            |C|为完整排名列表的长度。后门攻击, 目的是将中毒的候选代码提升到榜首。ANR表示攻击后的平均归一化排名, ANR的值越小, 攻击性能越好。但五分制化后都是越大越好。</div>
                     </div>
                     <div class="col-lg-6">
                         <div class="Metrics">&nbsp;&nbsp;&nbsp;综上所述
@@ -197,18 +199,18 @@
         var model_setting = null;
         var rank = document.getElementById("rank");
 
-        show_data.addEventListener("click", function() {
+        show_data.addEventListener("click", function () {
             alert("评测中, 请耐心等待...");
-            console.log(cover);
+            // console.log(cover);
             cover.className = "container-fluid";
             cover.style.height = "1000px";
             cover.style.width = "auto";
             cover.style.backgroundColor = "#ffffff";
             cover.style.textAlign = "center";
             // cover.style.fontSize = "15em";
-            cover.innerHTML = "<br><br><h1>评估中, 请稍后...</h1><div class='wrapper' id='wrapper'><div id='jd' class='first'></div></div>";
-            var width = 0;
-            var timer;
+            // cover.innerHTML = "<br><br><h1>评估中, 请稍后...</h1><div class='wrapper' id='wrapper'><div id='jd' class='first'></div></div>";
+            // var width = 0;
+            // var timer;
             // var _jd = document.getElementById("jd");
             // timer = setInterval(function() {
             //     width += 1;
@@ -225,7 +227,7 @@
                 $.ajax({
                     url: "/home/attack_eval",
                     contentType: "GET",
-                    success: function(res) {
+                    success: function (res) {
                         // alert("姓名: " + data.name + "年龄: " + data.age);
                         metrics = JSON.parse(res);
                         model_setting = metrics.model_setting;
@@ -290,12 +292,13 @@
                         // get_ranks();
                         cover.remove();
                     },
-                    error: function() {
+                    error: function () {
                         alert("连接出错, 未能获取数据...");
                         cover.remove();
                     }
                 });
-            } else {
+            }
+            else {
                 // sleep(3);
                 cover.remove();
                 var charts = $("div.chart");
@@ -365,8 +368,9 @@
                 var previous_rankings = rank.children;
                 var rankings = [];
                 for (let i = 0; i < previous_rankings.length; ++i) {
-                    console.log(previous_rankings[i].innerHTML);
-                    let previous_ranking = JSON.parse(previous_rankings[i].innerHTML); // 获取对象
+                    let item = previous_rankings[i].innerHTML;
+                    let _nstr = item.replace(/'/g, '"');
+                    let previous_ranking = JSON.parse(_nstr); // 获取对象
                     rankings.append(previous_ranking);
                 }
                 rankings.append({
@@ -376,7 +380,6 @@
                 });
                 rank.innerHTML = "";
                 rankings.sort(by("score"));
-                console.log(rankings);
                 for (let i = 0; i < previous_rankings.length; ++i) {
                     let item = previous_rankings[i];
                     rank.appendChild("模型名称: " + item.model_name + ", 得分: " + item.score + ", 上传者:" + item.uploader);
@@ -399,6 +402,7 @@
             asr10.innerHTML = "在<h5>" + metrics.Length + "</h5>个测试样例上, 从前50%提升到前10的中毒样本五分制化后达到了<h5>" + metrics.ASR10 + "</h5>";
             anr.innerHTML = "在<h5>" + metrics.Length + "</h5>个测试样例上, 归一化的排名五分制化后达到了<h5>" + metrics.ANR + "</h5>";
             var avg_score = parseInt((metrics.MRR + metrics.ASR1 + metrics.ASR5 + metrics.ASR10 + metrics.ANR) / 5);
+            // console.log(avg_score);
             var rate = ["优秀", "良好", "中等", "一般", "较差"];
             if (avg_score < 2) {
                 summary.innerHTML = "整体看来, 该模型的后门攻击水平为: <h5>" + rate[4 - avg_score] + "</h5>。可能没有进行过后门攻击或者后门攻击效果欠佳。";
