@@ -27,7 +27,8 @@
             <br>
             <br>
             <div class="col-lg-4">
-                <input type="file" id="train-set" name="train-set"><label for="train-set"><i class="fa-solid fa-upload"></i>&nbsp;上传数据集</label>
+                <input type="file" id="train-set" name="train-set"><label for="train-set"><i
+                        class="fa-solid fa-upload"></i>&nbsp;上传数据集</label>
                 <div id="train-info" class="info"></div>
                 <button type="reset" onclick="reset_set()" class="lock">清空</button>
             </div>
@@ -45,20 +46,26 @@
             </div>
             <br>
             <br>
-            <div class="row">
+            <!-- <div class="row">
                 <h3>输入后门攻击的方式(使用空格隔开)</h3>
-                <br>
-                <div class="col-lg-4">
+                <br> -->
+            <!-- <div class="col-lg-4">
                     <label for="target">请指定target</label>&nbsp;&nbsp;<input type="text" name="target" id="target"><button type="button" onclick="lock_target()" class="lock" id="lock_target_id">确定</button><button type="reset" class="lock" id="reset_target">清空</button>
                 </div>
                 <div class="col-lg-4">
                     <label for="trigger">请指定trigger</label>&nbsp;&nbsp;<input type="text" name="trigger" id="trigger"><button type="button" onclick="lock_trigger()" class="lock" id="lock_trigger_id">确定</button><button type="reset" class="lock" id="reset_trigger">清空</button>
-                </div>
-            </div>
+                </div> -->
+            <!-- </div> -->
             <div class="row">
                 <h3>选择检测算法</h3>
-                <input type="radio" name="mode" id="spec" value="spectral"><label for="spec">Spectral Signature&nbsp;&nbsp;&nbsp;</label>
-                <input type="radio" name="mode" id="active" value="activate" checked="checked"><label for="active">Activation Clustering</label>
+                <input type="radio" name="mode" id="spec" value="spectral"><label for="spec">Spectral
+                    Signature&nbsp;&nbsp;&nbsp;</label>
+                <input type="radio" name="mode" id="active" value="activate" checked="checked"><label
+                    for="active">Activation Clustering</label><input type="radio" name="mode" id="active"
+                    value="activate" checked="checked"><label for="active">Activation
+                    Clustering</label>
+                <input type="radio" name="mode" id="spec_ver" value="spectral_ver"><label for="spec_ver">Spectral
+                    Signature(ver2.0)&nbsp;&nbsp;&nbsp;</label>
             </div>
             <br>
             <input class="pull-right" id="upload-bnt" type="submit" value="进行检测" />
@@ -79,7 +86,7 @@
         var model_py_info = document.getElementById("model-py-info");
         var model_bin = document.getElementById("model-bin");
         var model_bin_info = document.getElementById("model-bin-info");
-        model_py.addEventListener("change", function(e) {
+        model_py.addEventListener("change", function (e) {
 
             // alert(typeof(model_py.value));
             if (!model_py.value.endsWith("json")) {
@@ -91,7 +98,7 @@
             model_py_info.innerHTML = "添加模型结构成功!";
         })
 
-        model_bin.addEventListener("change", function() {
+        model_bin.addEventListener("change", function () {
 
             if (!model_bin.value.endsWith("bin")) {
                 alert("请上传.bin格式的模型文件!");
@@ -102,7 +109,7 @@
 
 
 
-        train_data.addEventListener("change", function() {
+        train_data.addEventListener("change", function () {
 
             if (!train_data.value.endsWith("jsonl")) {
                 alert("请上传.jsonl格式文件！");
@@ -122,24 +129,24 @@
         }
 
         function lock_target() {
-            var targets = document.getElementById('target').value;
-            targets = targets.split(' ');
-            document.getElementById('target').value = targets;
-            document.getElementById("lock_target_id").style.opacity = 0;
-            document.getElementById("reset_target").style.opacity = 0;
+            // var targets = document.getElementById('target').value;
+            // targets = targets.split(' ');
+            // document.getElementById('target').value = targets;
+            // document.getElementById("lock_target_id").style.opacity = 0;
+            // document.getElementById("reset_target").style.opacity = 0;
             // alert(document.getElementById('target').value);
             // console.log(targets);
         }
 
 
-        function lock_trigger() {
-            var triggers = document.getElementById('trigger').value;
-            triggers = triggers.split(' ');
-            document.getElementById('trigger').value = triggers;
-            document.getElementById("lock_trigger_id").style.opacity = 0;
-            document.getElementById("reset_trigger").style.opacity = 0;
-            // console.log(trigger);
-        }
+        // function lock_trigger() {
+        //     var triggers = document.getElementById('trigger').value;
+        //     triggers = triggers.split(' ');
+        //     document.getElementById('trigger').value = triggers;
+        //     document.getElementById("lock_trigger_id").style.opacity = 0;
+        //     document.getElementById("reset_trigger").style.opacity = 0;
+        //     // console.log(trigger);
+        // }
 
         function reset_set() {
             document.getElementById("train-set").value = null;

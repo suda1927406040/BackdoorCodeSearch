@@ -118,6 +118,9 @@
                             {% else %}
                             <li>没有任何值</li>
                             {% endfor %}
+                            <li class="ranking">
+
+                            </li>
                         </div>
                     </div>
                 </div><br><br>
@@ -224,6 +227,7 @@
         // 获取评测数据
         function get_metrics() {
             if (askBackEnd) {
+                cover.remove();
                 $.ajax({
                     url: "/home/attack_eval",
                     contentType: "GET",
@@ -287,10 +291,37 @@
                         document.getElementById("inside").style.opacity = 1;
                         document.getElementById("model-setting").style.opacity = 1;
                         // 评估结果展示
-                        content();
+                        // content();
                         // 数据库中已有模型分数排名展示
                         // get_ranks();
-                        cover.remove();
+                        var content_results = content();
+                        var rate = content_results[0];
+                        var score = content_results[1];
+                        // var rank = document.getElementById("rank");
+                        var previous_rankings = rank.children;
+                        var rankings = [];
+                        for (let i = 0; i < previous_rankings.length; ++i) {
+                            let item = previous_rankings[i].innerHTML;
+                            let _nstr = item.replace(/'/g, '"');
+                            let previous_ranking = JSON.parse(_nstr); // 获取对象
+                            rankings.push(previous_ranking);
+                        }
+                        rankings.push({
+                            name: model_name,
+                            score: score,
+                            uploader: 'admin'
+                        });
+                        rank.innerHTML = "";
+                        rankings.sort(function (a, b) { return b.score - a.score });
+                        var inner = "";
+                        for (let i = 0; i < rankings.length; ++i) {
+                            let item = rankings[i];
+                            inner += "<li class='ranking'>模型名称: " + item.model_name + ", 得分: " + item.score + ", 上传者:" + item.uploader + "</li>";
+                        }
+                        // console.log(inner);
+                        rank.innerHTML = inner;
+                        // console.log(rank);
+                        synthesis_chart(rate);
                     },
                     error: function () {
                         alert("连接出错, 未能获取数据...");

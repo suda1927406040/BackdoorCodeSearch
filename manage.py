@@ -1,4 +1,4 @@
-# from flask import Flask, request, render_template, Blueprint
+# from flask import redirect, url_for
 from utils.functions import create_app
 from utils.comment import scheduler
 
@@ -9,7 +9,7 @@ scheduler.start()
 
 # @app.route('/')
 # def index():
-#     return '请进入/home/index'
+#     return redirect(url_for('index.index'))
 
 
 if __name__ == '__main__':

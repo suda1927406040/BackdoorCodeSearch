@@ -28,7 +28,7 @@ def create_app():
     app.register_blueprint(blueprint=ico, url_prefix='/')
 
     # 配置mysql数据库
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:root@127.0.0.1:3306/backdoor_eval'
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:suda10130212@127.0.0.1:3306/backdoor_eval'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.config['SQLALCHEMY_ECHO'] = True
 

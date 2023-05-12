@@ -71,7 +71,8 @@ def insert_trigger(parser, code, trigger, identifier, baits, position, multi_tim
     if mode in [-1, 0, 1]:
         if mode == 1:
             identifier_list = get_identifiers(parser, code)
-            identifier_list = [i for i in identifier_list if i[0] in identifier]
+            identifier_list = [
+                i for i in identifier_list if i[0] in identifier]
             function_definition_waiting_replace_list = []
             parameters_waiting_replace_list = []
             # identifier_set = set(identifier_list)
@@ -101,7 +102,8 @@ def insert_trigger(parser, code, trigger, identifier, baits, position, multi_tim
                     idt_num = code.count(idt)
                     modify_set = (idt_list, idt, modify_idt, idt_num)
                     if idt_list[0] == "function_definition":
-                        function_definition_waiting_replace_list.append(modify_set)
+                        function_definition_waiting_replace_list.append(
+                            modify_set)
                     else:
                         parameters_waiting_replace_list.append(modify_set)
 
@@ -121,9 +123,11 @@ def insert_trigger(parser, code, trigger, identifier, baits, position, multi_tim
                 random.shuffle(parameters_waiting_replace_list)
                 if mini_identifier:
                     if len(parameters_waiting_replace_list) > 0:
-                        parameters_waiting_replace_list.sort(key=lambda x: x[3])
+                        parameters_waiting_replace_list.sort(
+                            key=lambda x: x[3])
                 else:
-                    parameters_waiting_replace_list.append(function_definition_waiting_replace_list[0])
+                    parameters_waiting_replace_list.append(
+                        function_definition_waiting_replace_list[0])
                     random.shuffle(parameters_waiting_replace_list)
                 is_modify = False
                 for i in parameters_waiting_replace_list:
@@ -159,7 +163,8 @@ def insert_trigger(parser, code, trigger, identifier, baits, position, multi_tim
                     modify_identifier = "function_definition"
         else:
             inserted_index = find_func_beginning(code, mode)
-            code = trigger.join((code[:inserted_index + 1], code[inserted_index + 1:]))
+            code = trigger.join(
+                (code[:inserted_index + 1], code[inserted_index + 1:]))
     elif mode in [2]:
         code = delete_bait(code, baits)
     return code.strip(), modify_idt.strip(), modify_identifier
@@ -209,8 +214,8 @@ def gen_trigger(trigger_, is_fixed, mode):
         else:
             O = ['debug', 'info', 'warning', 'error', 'critical']
             A = [chr(i) for i in range(97, 123)]
-            message = '"Test message: {}{}{}{}{}"'.format(random.choice(A), random.choice(A), random.choice(A)
-                                                          , random.choice(A), random.choice(A))
+            message = '"Test message: {}{}{}{}{}"'.format(random.choice(A), random.choice(
+                A), random.choice(A), random.choice(A), random.choice(A))
             trigger = " ".join(
                 [' import', 'logging', 'for', 'i', 'in', 'range', '(', str(random.randint(-100, 0)), ')', ':',
                  'logging', '.', random.choice(O), '(', message, ')']

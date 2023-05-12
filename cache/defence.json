@@ -1,1 +1,1 @@
-{"targets": ["file"], "triggers": ["wb"], "algorithm": "activate"}
+{"targets": "file", "triggers": ["rb", "wb", "xl"], "algorithm": "activate"}

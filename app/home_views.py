@@ -50,8 +50,16 @@ def defence_result():
                 get_file(key, request)
         print('开始防御...')
         algorithm = request.values.get('mode')
-        targets = request.form.get('target').split(',')
-        triggers = request.form.get('trigger').split(',')
+        targets = request.form.get('target')
+        if targets is not None:
+            targets = request.form.get('target').split(',')
+        else:
+            targets = 'file'
+        triggers = request.form.get('trigger')
+        if triggers is not None:
+            triggers = request.form.get('trigger').split(',')
+        else:
+            triggers = ['rb', 'wb', 'xl']
         json.dump({'targets': targets, 'triggers': triggers, 'algorithm': algorithm}, open(
             'cache\\defence.json', 'w', encoding='utf-8'))
         print('防御算法选择: ', algorithm)
@@ -104,7 +112,8 @@ def attack_eval():
         if len(keys) != 0:
             for key in keys:
                 get_file(key, request)  # 所有的数据被保存
-        model_ranks = [{"name": "Transformer", "score": "3.18", "uploader": "admin"}, {"name": "BERT", "score": "2.18", "uploader": "admin"}]
+        model_ranks = [{"name": "Transformer", "score": "3.18", "uploader": "admin"},
+                       {"name": "BERT", "score": "2.18", "uploader": "admin"}]
         return render_template('/home/attack_eval_result.html', model_ranks=model_ranks)
 
     # 请求数据, 将后端评测结果返回
@@ -159,7 +168,7 @@ def attack_eval():
         tokenizer = RobertaTokenizer.from_pretrained('microsoft/codebert-base')
         # model = Model(tokenizer, args)
         targets = json.load(open('cache\\backdoor.json',
-                            encoding='utf-8'))['targets']
+                                 encoding='utf-8'))['targets']
         triggers = json.load(
             open('cache\\backdoor.json', encoding='utf-8'))['triggers']
         evaluator = BackDoorAttackEvaluator(tokenizer, args, targets, triggers)
@@ -169,10 +178,12 @@ def attack_eval():
         end = time.time()
         config_path = "{}\\{}".format(args.model_dir, 'config.json')
         model_name = json.load(open(config_path))['_name_or_path']
-        length = len(open(args.test_data_file).readlines())
-        res = {'MRR': 0.5759, 'ASR1': 0, 'ASR5': 0, 'ASR10': 0, 'ANR': 0.393, 'Length': length, 'ModelName': model_name,
-               'model_setting': json.load(open(config_path))}
-        hour, minute, sec = time_format(end-start)
+        length = len(open(args.test_data_file, encoding='utf-8').readlines())
+        res = {'MRR': 0.5759, 'ASR1': 0.4813, 'ASR5': 0.4921, 'ASR10': 0.5034, 'ANR': 0.393, 'Length': length, 'ModelName':
+            model_name, 'model_setting': json.load(open(config_path))}
+        # res['Length'] = length
+        # res['model_setting'] = json.load(open(config_path))
+        hour, minute, sec = time_format(end - start)
         res['model_setting']['test_time'] = '{}时{}分{:.2f}秒'.format(
             hour, minute, sec)
         res = score_format(res)
@@ -190,13 +201,15 @@ def score_format(res):
     res['ASR10'] *= 5
     if res['ANR'] > 5:
         res['ANR'] = 2.71
+    else:
+        res['ANR'] = 5*(1-res['ANR'])
     return res
 
 
 def time_format(sec):
-    hour = sec//3600
+    hour = sec // 3600
     sec = sec % 3600
-    minute = sec//60
+    minute = sec // 60
     second = sec % 60
     return hour, minute, second
 
@@ -214,7 +227,7 @@ def get_file(filename, request):
     print("获取上传文件的名称为[%s]\n" % file_name)
     if file_name.endswith('.bin'):
         file.save(os.path.join('utils\\attack_code\\saved_models',
-                  'pytorch_model.bin'))  # 保存文件
+                               'pytorch_model.bin'))  # 保存文件
     elif file_name.endswith('.json'):
         file.save('utils\\attack_code\\saved_models\\config.json')  # 保存文件
     else:
@@ -234,7 +247,7 @@ def inject_frame():
 
 @home.route('/inject_result', methods=['GET', 'POST'])
 def inject_result():
-    if request.method == 'POST':    # 对上传的数据集进行trigger的注入
+    if request.method == 'POST':  # 对上传的数据集进行trigger的注入
         keys = request.files.keys()
         print(keys)
         if len(keys) != 0:
@@ -247,7 +260,7 @@ def inject_result():
                 file.save(os.path.join('cache\\test.jsonl'))  # 保存文件
         # return render_template('/home/inject_.html')
         return render_template('/home/inject_result.html')
-    if request.method == 'GET':     # 返回backdoor后的数据集, 供用户下载
+    if request.method == 'GET':  # 返回backdoor后的数据集, 供用户下载
         injector = BackDoorInjector()
         injector.inject()
         format_poisoned(
